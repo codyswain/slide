@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import ContactScreen from '../screens/ContactScreen';
 import ActionScreen from '../screens/ActionScreen';
 import NotificationScreen from '../screens/NotificationScreen';
+import BookmarkScreen from '../screens/BookmarkScreen'; 
 
 import { Icon } from 'react-native-elements'; // Icons for tab navigator
 
@@ -29,7 +30,7 @@ const NotificationStack = createStackNavigator({
 });
 
 NotificationStack.navigationOptions = {
-  tabBarLabel: 'Notifications',
+  tabBarLabel: 'Social',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -38,9 +39,24 @@ NotificationStack.navigationOptions = {
   ),
 };
 
+const BookmarkStack = createStackNavigator({
+  Bookmarks: BookmarkScreen,
+});
+
+BookmarkStack.navigationOptions = {
+  tabBarLabel: 'Bookmarks',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={'md-bookmark'}
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   HomeStack,
   NotificationStack,
+  BookmarkStack, 
 }, 
 {
   tabBarOptions: {

@@ -12,6 +12,9 @@ import {
   View,
   Button,
   Alert,
+  TouchableOpacity,
+  Text,
+  Image
 } from 'react-native';
 
 import MainTabNavigator from './MainTabNavigator';
@@ -49,14 +52,38 @@ class AuthLoadingScreen extends React.Component {
 
 class SignInScreen extends React.Component {
   static navigationOptions = {
-    title: 'Please sign in',
+    header: null,
   };
 
   render() {
     return (
-      <View>
-        <Button title="Sign in!" onPress={this._logIn} />
-      </View>
+    	<View style={styles.backgroundContainer}> 
+    		<View style={styles.titleContainer}>
+    			<Text style={styles.titleText}>LooseRoots</Text>
+    		</View>
+    		<View style={styles.subtitleContainer}>
+    			<Text style={styles.subtitleText}>Make Meaningful Memories.</Text>
+    		</View>
+
+    		<View style={styles.imageContainer}>
+    		  <Image 
+    		  	style={styles.imageStyling}
+    		  	source={require('../assets/images/login_tree_photo.jpg')}
+    		  />
+    		</View>
+
+	    	<TouchableOpacity onPress={this._logIn}>
+	        <View style={styles.loginButton}>
+	          <Text style={styles.loginButtonText}>Sign in with Facebook</Text>
+	        </View>
+	      </TouchableOpacity>
+
+	      <TouchableOpacity onPress={this._logIn}>
+	        <View style={styles.signupButton}>
+	          <Text style={styles.signupButtonText}>Sign up</Text>
+	        </View>
+	      </TouchableOpacity>
+	    </View> 
     );
   }
 
@@ -128,3 +155,91 @@ const SwitchStack = createSwitchNavigator(
 const App = createAppContainer(SwitchStack);
 
 export default App; 
+
+
+const styles = StyleSheet.create({
+	backgroundContainer: {
+		flex: 1, 
+		backgroundColor: "white",
+	},
+	titleContainer: {
+		marginTop: 48, 
+		height: 60,
+		// backgroundColor: 'blue',
+		justifyContent: 'center',
+		alignItems: 'center', 
+	},
+	titleText: {
+		color: 'black',
+    fontSize: 41,
+    fontFamily: 'System',
+    fontWeight: 'bold',
+    color: "#3b5998",
+    // color: '#e91e63',
+	},
+	subtitleContainer: {
+		height: 20,
+		// backgroundColor: 'red',
+		alignItems: 'center',
+		justifyContent: 'center', 
+	},
+	subtitleText: {
+		// color: "#3b5998",
+		color: 'black',
+		fontSize: 14,
+		fontWeight: 'bold',
+		fontFamily: 'System',
+	},
+	imageContainer: {
+		height: 360,
+		alignItems: 'center',
+		justifyContent: 'center', 
+	},
+	imageStyling: {
+		flex: 1, 
+		resizeMode: 'contain',
+	},
+  loginButton: {
+    marginRight: 19,
+    marginLeft: 19,
+    height: 58,
+    borderRadius: 30,
+    backgroundColor: "#3b5998",
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    shadowOffset:{  width: .1 ,  height: .5,  },
+    shadowColor: 'rgb(230, 230, 230)',
+    shadowOpacity: .8,
+  },
+  loginButtonText: {
+    // color: 'rgb(68, 73, 84)',
+    color: 'white',
+    fontSize: 17,
+    fontFamily: 'System',
+    fontWeight: 'bold',
+  },
+  signupButton: {
+    marginRight: 19,
+    marginLeft: 19,
+    marginTop: 12,
+    height: 58,
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: "#3b5998",
+    backgroundColor: "white",
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    shadowOffset:{  width: .1 ,  height: .5,  },
+    shadowColor: 'rgb(230, 230, 230)',
+    shadowOpacity: .8,
+  },
+  signupButtonText: {
+    // color: 'rgb(68, 73, 84)',
+    color: '#3b5998',
+    fontSize: 17,
+    fontFamily: 'System',
+    fontWeight: 'bold',
+  },
+})

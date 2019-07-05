@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
       marginRight: 18,
       marginLeft: 18,
       marginTop: 18,
-      height: 70,
+      height: 400,
       borderRadius: 13,
       backgroundColor: "#16D8C0",
       justifyContent: 'center',
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
     title: {
       // color: 'rgb(68, 73, 84)',
-      color: 'white',
+      color: 'black',
       fontSize: 20,
       fontFamily: 'System',
       fontWeight: 'bold',

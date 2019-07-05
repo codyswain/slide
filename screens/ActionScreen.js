@@ -9,7 +9,7 @@ export default class ActionScreen extends React.Component {
   // I put _this=this into the componentDidMount method
 
   static navigationOptions =  ({ navigation }) => ({
-    title: 'Voila',
+    title: 'LooseRoots',
     headerTitleStyle: {
       fontSize: 24,
       fontFamily: 'System',
@@ -40,12 +40,12 @@ export default class ActionScreen extends React.Component {
     _this = this; 
 
     action_list = [
-      {"text": "Interested", "color": "white"},
-      {"text": "Smoke Sesh", "color": "white"},
-      {"text": "Hangout", "color": "white"},
-      {"text": "Go Somewhere", "color": "white"}, 
-      {"text": "Chill", "color": "white"},
-      {"text": "Chow Down", "color": "white"},]
+      {"text": "This will be a swipeable event", "color": "#ff4081"},
+      {"text": "This will also be a swipeable event", "color": "#40c4ff"},
+      {"text": "Surfing in Pacifica", "color": "white"},
+      {"text": "Hiking in the Alps", "color": "white"}, 
+      {"text": "Riding bikes at the marina", "color": "white"},
+      {"text": "Chowing at Pong's", "color": "white"},]
 
       // {"text": "Interested", "color": "#fff"},
       // {"text": "Smoke Sesh", "color": "#fff"},

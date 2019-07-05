@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default class SettingsScreen extends React.Component {
+export default class BookmarksScreen extends React.Component {
   static navigationOptions =  ({ navigation }) => ({
     title: 'Voilá',
     headerTitleStyle: {
@@ -22,7 +22,7 @@ export default class SettingsScreen extends React.Component {
   	return (
 	    <View>
 	    	<Text>
-	    		This is the social screen
+	    		This is the bookmarks screen
 	    	</Text> 
 	    </View>
 	  );
