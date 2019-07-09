@@ -1,8 +1,9 @@
 import React from 'react';
-import { ScrollView, StyleSheet, FlatList, Button, Alert, AsyncStorage } from 'react-native';
+import { View, ScrollView, StyleSheet, FlatList, Button, Alert, AsyncStorage } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import ActionButton from '../components/ActionButton'
 import { Contacts } from 'expo';
+import * as Icon from '@expo/vector-icons'
 
 export default class ActionScreen extends React.Component {
   // Note: To bind a function into the navigation options
@@ -22,11 +23,16 @@ export default class ActionScreen extends React.Component {
       shadowColor: 'rgb(68, 73, 84)',
       shadowOpacity: .1,
     },
+    headerLeft: (
+      <Button
+        onPress={() => _this._signOut()}
+        title="Profile"
+      />
+    ),
     headerRight: (
       <Button
         onPress={() => _this._signOut()}
         title="Sign Out"
-        color="blue"
       />
     ),
   });
@@ -61,26 +67,36 @@ export default class ActionScreen extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <ScrollView style={styles.container}>
-        <FlatList
-          data={this.state.actions}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={ ({item}) => <ActionButton action_data={item} navigation={navigate}/>}      
-        />
-      </ScrollView>
+      <View style={styles.container}>
+        <View style={styles.filterContainer}>
+          
+        </View>
+        <ScrollView style={styles.scrollSwipeContainer}>
+          <FlatList
+            data={this.state.actions}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={ ({item}) => <ActionButton action_data={item} navigation={navigate}/>}      
+          />
+        </ScrollView>
+      </View>
     );
   }
 
   _signOut = async () => {
     await AsyncStorage.removeItem('userToken');
-    alert("You have been signed out. ");
     this.props.navigation.navigate('Auth');
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1, 
+  },
+  filterContainer: {
+    flex: .15,
+  },
+  scrollSwipeContainer: {
+    flex: .85,
     backgroundColor: 'rgb(248, 248, 249)',
     // backgroundColor: 'black',
   },
