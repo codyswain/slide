@@ -1,18 +1,25 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { Icon } from 'react-native-elements';
+import { 
+  createStackNavigator, 
+  createBottomTabNavigator 
+} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import ContactScreen from '../screens/ContactScreen';
-import ActionScreen from '../screens/ActionScreen';
-import NotificationScreen from '../screens/NotificationScreen';
+import HomeScreen from '../screens/ActionScreen';
+import SocialScreen from '../screens/NotificationScreen';
 import BookmarkScreen from '../screens/BookmarkScreen'; 
 
-import { Icon } from 'react-native-elements'; // Icons for tab navigator
+/* ---- About ----
+There are three screens accessible via the tab navigator (Home, Social,
+Bookmarks). Each of the tabs is a stack navigator. Below is the code for the tab
+navigator and the individual stack navigators. All additional screens must be
+imported into this file, and managed from here. 
+*/ 
 
 const HomeStack = createStackNavigator({
-  Action: ActionScreen,
-  Contact: ContactScreen,
+  Home: HomeScreen,
 });
 
 HomeStack.navigationOptions = {
@@ -25,11 +32,11 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const NotificationStack = createStackNavigator({
-  Notifications: NotificationScreen,
+const SocialStack = createStackNavigator({
+  Social: SocialScreen,
 });
 
-NotificationStack.navigationOptions = {
+SocialStack.navigationOptions = {
   tabBarLabel: 'Social',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -40,7 +47,7 @@ NotificationStack.navigationOptions = {
 };
 
 const BookmarkStack = createStackNavigator({
-  Bookmarks: BookmarkScreen,
+  Bookmark: BookmarkScreen,
 });
 
 BookmarkStack.navigationOptions = {
@@ -55,7 +62,7 @@ BookmarkStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  NotificationStack,
+  SocialStack,
   BookmarkStack, 
 }, 
 {
