@@ -29,9 +29,9 @@ export default class LoginScreen extends React.Component {
     return (
     	<View style={styles.backgroundContainer}> 
     		<View style={styles.titleContainer}>
-    			<Text style={styles.titleText}>LooseRoots</Text>
+    			<Text style={styles.titleText}>Slide</Text>
     		</View>
-    		
+
     		<View style={styles.subtitleContainer}>
     			<Text style={styles.subtitleText}>Make Meaningful Memories.</Text>
     		</View>
