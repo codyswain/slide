@@ -6,7 +6,11 @@ import {
   FlatList, 
   Button, 
   Alert, 
-  AsyncStorage 
+  AsyncStorage,
+  TouchableOpacity,
+  Text,
+  Image,
+  Dimensions, 
 } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import EventPane from '../components/EventPane'
@@ -24,14 +28,14 @@ let get_all = async () => {
       'name': db_event['name'],
       'type': db_event['type'],
       'address': db_event['address'],
-      'photoId': db_event['photoId'],
+      'photoURL': db_event['photoURL'],
     }
     events.push(event);
   });
   return events;
 }
 
-export default class ActionScreen extends React.Component {
+export default class HomeScreen extends React.Component {
   // Note: To bind a function into the navigation options
   // I put _this=this into the componentDidMount method
 
@@ -45,7 +49,7 @@ export default class ActionScreen extends React.Component {
     headerStyle: {
       backgroundColor: '#fff',
       borderBottomWidth: 0,
-      shadowOffset:{  width: 0 ,  height: .2,  },
+      shadowOffset:{  width: 0 ,  height: .1,  },
       shadowColor: 'rgb(68, 73, 84)',
       shadowOpacity: .1,
     },
@@ -70,18 +74,11 @@ export default class ActionScreen extends React.Component {
 
   componentDidMount(){
     _this = this; 
-
-    events_list = [
-      {"text": "This will be a swipeable event", "color": "#ff4081"},
-      {"text": "This will also be a swipeable event", "color": "#40c4ff"},
-      {"text": "Surfing in Pacifica", "color": "white"},
-      {"text": "Hiking in the Alps", "color": "white"}, 
-      {"text": "Riding bikes at the marina", "color": "white"},
-      {"text": "Chowing at Pong's", "color": "white"},];
-
+    events_list = [];
     this.setState({
       events: events_list,
     });
+    this._updateEventContainers();
   };
 
   render() {
@@ -89,7 +86,38 @@ export default class ActionScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.filterContainer}>
-          <Button title="test retrieve" onPress={this._updateEventContainers} />
+          <ScrollView contentContainerStyle={styles.horizontalFilterScrollContent} style={styles.horizontalFilterScroll} horizontal={true}>
+            <TouchableOpacity onPress={this._updateEventContainers}>
+              <View style={[styles.filterButton, styles.f1]}>
+                <Text style={styles.filterButtonText}>Food</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._updateEventContainers}>
+              <View style={[styles.filterButton, styles.f2]}>
+                <Text style={styles.filterButtonText}>Drink</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._updateEventContainers}>
+              <View style={[styles.filterButton, styles.f3]}>
+                <Text style={styles.filterButtonText}>Active</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._updateEventContainers}>
+              <View style={[styles.filterButton, styles.f4]}>
+                <Text style={styles.filterButtonText}>Movie</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._updateEventContainers}>
+              <View style={[styles.filterButton, styles.f5]}>
+                <Text style={styles.filterButtonText}>Park</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._updateEventContainers}>
+              <View style={[styles.filterButton, styles.f6]}>
+                <Text style={styles.filterButtonText}>More</Text>
+              </View>
+            </TouchableOpacity>
+            </ScrollView>
         </View>
         <ScrollView style={styles.scrollSwipeContainer}>
           <FlatList
@@ -121,10 +149,47 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     flex: .15,
+    alignItems: 'center', 
+    shadowOffset:{  width: 0 ,  height: .2,  },
+    shadowColor: 'rgb(68, 73, 84)',
+    shadowOpacity: .1,
+  },
+  horizontalFilterScroll: {
+    width: Dimensions.get('window').width,
+  },
+  horizontalFilterScrollContent: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  filterButton: {
+    width: 58,
+    height: 58, 
+    backgroundColor: 'white', 
+    borderRadius: 50, 
+    borderColor: 'grey', 
+    borderWidth: .2, 
+    marginLeft: 12,
+    shadowOffset: { width: 0, height: .1 },
+    shadowColor: 'rgb(68, 73, 84)',
+    shadowOpacity: .1,
+
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   scrollSwipeContainer: {
     flex: .85,
     backgroundColor: 'rgb(248, 248, 249)',
-    // backgroundColor: 'black',
+  },
+  f1: {backgroundColor: "#e91e63"},
+  f2: {backgroundColor: "#ff4081"},
+  f3: {backgroundColor: "#5677fc"},
+  f4: {backgroundColor: "#40c4ff"},
+  f5: {backgroundColor: "#5af158"},
+  f6: {backgroundColor: "#ffd740"},
+  filterButtonText: {
+    fontSize: 14,
+    fontFamily: 'System',
+    fontWeight: 'bold',
+    color: 'white',
   },
 });

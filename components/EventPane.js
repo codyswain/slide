@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import { 
+  Text, 
+  View, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Image
+} from 'react-native';
 
 export default class EventPane extends React.Component {
   constructor(props){
@@ -15,15 +21,20 @@ export default class EventPane extends React.Component {
     event_name = this.props.event_data['name'];
     event_type = this.props.event_data['type'];
     event_address = this.props.event_data['address'];
-    event_photoId = this.props.event_data['photoId'];
+    event_photoURL = this.props.event_data['photoURL'];
 
     return (
       <TouchableOpacity onPress={this._onPress}>
         <View style={styles.main}>
-          <Text style={styles.title}>Name: {event_name}</Text>
-          <Text style={styles.title}>Type: {event_type}</Text>
-          <Text style={styles.title}>Address: {event_address}</Text>
-          <Text style={styles.title}>photoId: {event_photoId}</Text>
+          <View style={styles.paneHeaderContainer}>
+            <Text style={styles.headerTextName}>{event_name}</Text>
+            <Text style={styles.headerTextType}>{event_type}</Text>
+            <Text style={styles.headerTextAddress}>{event_address}</Text>
+          </View> 
+
+          <View style={styles.paneImageContainer}>
+            <Image resizeMode="cover" style={styles.paneImage} source={{ uri: event_photoURL }}/>
+          </View> 
         </View>
       </TouchableOpacity>
     );
@@ -32,23 +43,54 @@ export default class EventPane extends React.Component {
 
 const styles = StyleSheet.create({
     main: {
-      marginRight: 18,
-      marginLeft: 18,
-      marginTop: 18,
+      marginRight: 14,
+      marginLeft: 14,
+      marginTop: 14,
       height: 400,
       borderRadius: 13,
       backgroundColor: "white",
-      justifyContent: 'center',
-      alignItems: 'center',
-
       shadowOffset:{  width: .1 ,  height: .5,  },
       shadowColor: 'rgb(230, 230, 230)',
       shadowOpacity: .8,
+
+      overflow: 'hidden', 
     },
-    title: {
+    paneHeaderContainer: {
+      position: 'absolute',
+      backgroundColor: 'white',
+      opacity: .7, 
+      height: '20%',
+      width: '100%',
+      zIndex: 1, 
+
+      padding: '3%',
+    },
+    paneImageContainer: {
+      flex: 1,
+      width: '100%', 
+    },
+    paneImage: {
+      flex: 1,
+      alignSelf: 'stretch',
+      height: undefined,
+      width: undefined,
+    },
+    headerTextName: {
       // color: 'rgb(68, 73, 84)',
       color: 'black',
-      fontSize: 20,
+      fontSize: 16,
+      fontFamily: 'System',
+      fontWeight: 'bold',
+    },
+    headerTextType: {
+      color: '#e91e63',
+      fontSize: 14,
+      fontFamily: 'System',
+      fontWeight: 'bold',
+    },
+    headerTextAddress: {
+      color: 'black',
+      fontSize: 14,
       fontFamily: 'System',
       fontWeight: 'bold',
     },
