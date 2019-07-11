@@ -15,7 +15,7 @@ import {
 import { ExpoLinksView } from '@expo/samples';
 import EventPane from '../components/EventPane'
 import { Contacts } from 'expo';
-import * as Icon from '@expo/vector-icons';
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { db } from '../src/config.js';
 
 // Retrieve all events in firebase
@@ -27,6 +27,7 @@ let get_all = async () => {
     event = {
       'name': db_event['name'],
       'type': db_event['type'],
+      'subtitle': db_event['subtitle'],
       'address': db_event['address'],
       'photoURL': db_event['photoURL'],
     }
@@ -44,6 +45,7 @@ export default class HomeScreen extends React.Component {
     headerTitleStyle: {
       fontSize: 24,
       fontFamily: 'System',
+      fontStyle: 'italic',
       color: 'rgb(68, 73, 84)',
     },
     headerStyle: {
@@ -54,16 +56,26 @@ export default class HomeScreen extends React.Component {
       shadowOpacity: .1,
     },
     headerLeft: (
-      <Button
-        onPress={() => _this._signOut()}
-        title="Profile"
-      />
+      <TouchableOpacity onPress={() => _this._signOut()}>
+        <View style={{marginLeft: 10}}>  
+          <FontAwesome
+            name="user-circle-o"
+            size={24}
+            color="rgb(68, 73, 84)"
+          />
+        </View>
+      </TouchableOpacity>
     ),
     headerRight: (
-      <Button
-        onPress={() => _this._signOut()}
-        title="Sign Out"
-      />
+      <TouchableOpacity onPress={() => _this._signOut()}> 
+        <View style={{marginRight: 10}}>
+          <MaterialIcons
+            name="settings"
+            size={26}
+            color="rgb(68, 73, 84)"
+          />
+        </View>
+      </TouchableOpacity>
     ),
   });
 
@@ -86,7 +98,12 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.filterContainer}>
-          <ScrollView contentContainerStyle={styles.horizontalFilterScrollContent} style={styles.horizontalFilterScroll} horizontal={true}>
+          <ScrollView 
+            contentContainerStyle={styles.horizontalFilterScrollContent} 
+            style={styles.horizontalFilterScroll} 
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          >
             <TouchableOpacity onPress={this._updateEventContainers}>
               <View style={[styles.filterButton, styles.f1]}>
                 <Text style={styles.filterButtonText}>Food</Text>
@@ -148,7 +165,7 @@ const styles = StyleSheet.create({
     flex: 1, 
   },
   filterContainer: {
-    flex: .15,
+    flex: .12,
     alignItems: 'center', 
     shadowOffset:{  width: 0 ,  height: .2,  },
     shadowColor: 'rgb(68, 73, 84)',
@@ -162,13 +179,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   filterButton: {
-    width: 58,
-    height: 58, 
-    backgroundColor: 'white', 
-    borderRadius: 50, 
-    borderColor: 'grey', 
-    borderWidth: .2, 
-    marginLeft: 12,
+    // width: 58,
+    // height: 58, 
+    // borderRadius: 50, 
+    width: 75,
+    height: 50, 
+    borderRadius: 6, 
+    marginLeft: 6,
     shadowOffset: { width: 0, height: .1 },
     shadowColor: 'rgb(68, 73, 84)',
     shadowOpacity: .1,
@@ -177,7 +194,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scrollSwipeContainer: {
-    flex: .85,
+    flex: .88,
     backgroundColor: 'rgb(248, 248, 249)',
   },
   f1: {backgroundColor: "#e91e63"},

@@ -20,6 +20,7 @@ export default class EventPane extends React.Component {
 	render(){
     event_name = this.props.event_data['name'];
     event_type = this.props.event_data['type'];
+    event_subtitle = this.props.event_data['subtitle'];
     event_address = this.props.event_data['address'];
     event_photoURL = this.props.event_data['photoURL'];
 
@@ -28,7 +29,7 @@ export default class EventPane extends React.Component {
         <View style={styles.main}>
           <View style={styles.paneHeaderContainer}>
             <Text style={styles.headerTextName}>{event_name}</Text>
-            <Text style={styles.headerTextType}>{event_type}</Text>
+            <Text style={styles.headerTextType}>{event_subtitle}</Text>
             <Text style={styles.headerTextAddress}>{event_address}</Text>
           </View> 
 
@@ -45,8 +46,8 @@ const styles = StyleSheet.create({
     main: {
       marginRight: 14,
       marginLeft: 14,
-      marginTop: 14,
-      height: 400,
+      marginTop: 12,
+      height: 320,
       borderRadius: 13,
       backgroundColor: "white",
       shadowOffset:{  width: .1 ,  height: .5,  },
@@ -57,13 +58,13 @@ const styles = StyleSheet.create({
     },
     paneHeaderContainer: {
       position: 'absolute',
-      backgroundColor: 'white',
-      opacity: .7, 
+      backgroundColor: 'rgba(0, 0, 0, .75)',
       height: '20%',
       width: '100%',
       zIndex: 1, 
 
-      padding: '3%',
+      paddingTop: '2%',
+      paddingLeft: '3%',
     },
     paneImageContainer: {
       flex: 1,
@@ -77,8 +78,8 @@ const styles = StyleSheet.create({
     },
     headerTextName: {
       // color: 'rgb(68, 73, 84)',
-      color: 'black',
-      fontSize: 16,
+      color: 'white',
+      fontSize: 17,
       fontFamily: 'System',
       fontWeight: 'bold',
     },
@@ -89,9 +90,9 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     headerTextAddress: {
-      color: 'black',
-      fontSize: 14,
+      color: 'white',
+      fontSize: 10,
       fontFamily: 'System',
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
     },
 })
