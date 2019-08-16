@@ -13,8 +13,10 @@ Clone the repo to your preferred directory
 `git clone https://github.com/looseroots/voila-facebook-firebase.git`
 
 Install necessary node modules
-```cd voila-facebook-firebase
-npm install```
+```bash
+cd voila-facebook-firebase
+npm install
+```
 
 Install [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
 `npm install react-native-vector-icons --save`
