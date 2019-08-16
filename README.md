@@ -10,7 +10,9 @@ Install the Expo command line interface
 `npm install -g expo-cli`
 
 Clone the repo to your preferred directory
-`git clone https://github.com/looseroots/voila-facebook-firebase.git`
+```bash
+git clone https://github.com/looseroots/voila-facebook-firebase.git
+```
 
 Install necessary node modules
 ```bash
@@ -19,7 +21,11 @@ npm install
 ```
 
 Install [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
-`npm install react-native-vector-icons --save`
+```bash
+npm install react-native-vector-icons --save
+```
 
 Run the app!
-`expo start`
+```bash
+expo start
+```
