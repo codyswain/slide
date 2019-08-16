@@ -25,7 +25,7 @@ let get_all = async () => {
   snapshot.forEach(doc => {
     db_event = doc.data()
     event = {
-      'name': db_event['name'],
+      'name': db_event['name'], 
       'type': db_event['type'],
       'subtitle': db_event['subtitle'],
       'address': db_event['address'],
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   },
   scrollSwipeContainer: {
     flex: .88,
-    backgroundColor: 'rgb(248, 248, 249)',
+    backgroundColor: 'rgb(238, 238, 238)',
   },
   f1: {backgroundColor: "#e91e63"},
   f2: {backgroundColor: "#ff4081"},
