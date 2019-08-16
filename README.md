@@ -3,11 +3,12 @@
 This app is built in [React Native](https://facebook.github.io/react-native/) and the [Expo Toolchain](https://expo.io/)
 
 ### Installation
-Make sure the the recommended version of Node is installed
-https://nodejs.org/en/
+Make sure the the recommended version of [Node](https://nodejs.org/en/about/) is installed
 
-Install the Expo command line interface
-`npm install -g expo-cli`
+Install the [Expo Command Line Interface](https://docs.expo.io/versions/latest/workflow/expo-cli/)
+```bash
+npm install -g expo-cli
+```
 
 Clone the repo to your preferred directory
 ```bash
