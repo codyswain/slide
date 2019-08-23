@@ -17,16 +17,15 @@ export default class CreatePlanButton extends React.Component {
         onPress={() => {this.props.navigation.navigate('CreatePlan');}}
       >
         <View style={styles.buttonContainer}>
-          {/***************************/}
-          {/* <Text style={{          */}
-          {/*   color: 'white',       */}
-          {/*   fontFamily: 'System', */}
-          {/*   fontWeight: '300',    */}
-          {/*   fontSize: 22 ,        */}
-          {/* }}>                     */}
-          {/*   +                     */}
-          {/* </Text>                 */}
-          {/***************************/}
+          <Text style={{         
+            color: 'white',      
+            fontFamily: 'System',
+            fontWeight: '300',   
+            fontSize: 22 ,       
+          }}>                    
+            +                    
+          </Text>                
+          
           <Text style={{
             color: 'white',
             fontFamily: 'System',

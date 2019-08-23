@@ -13,7 +13,8 @@ import {
   Dimensions, 
 } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
-import EventPane from '../components/EventPane'
+import EventPane from '../components/EventPane';
+import CreatePlanButton from '../components/CreatePlanButton';
 import { Contacts } from 'expo';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { db } from '../src/config.js';
@@ -30,7 +31,7 @@ let get_all = async () => {
       'subtitle': db_event['subtitle'],
       'address': db_event['address'],
       'photoURL': db_event['photoURL'],
-    }
+    };
     events.push(event);
   });
   return events;
@@ -143,6 +144,7 @@ export default class HomeScreen extends React.Component {
             renderItem={ ({item}) => <EventPane event_data={item} navigation={navigate}/>}      
           />
         </ScrollView>
+        <CreatePlanButton/>
       </View>
     );
   };
