@@ -2,7 +2,7 @@
 
 This app is built in [React Native](https://facebook.github.io/react-native/) and the [Expo Toolchain](https://expo.io/)
 
-![Image of Slide](https://i.imgur.com/esiaB8m.jpg){ width: 200px; }
+![Image of Slide](https://i.imgur.com/esiaB8m.jpg | width=100)
 
 ### Installation
 Make sure the the recommended version of [Node](https://nodejs.org/en/about/) is installed
