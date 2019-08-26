@@ -13,7 +13,8 @@ import {
   Dimensions, 
 } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
-import EventPane from '../components/EventPane'
+import EventPane from '../components/EventPane';
+import CreatePlanButton from '../components/CreatePlanButton';
 import { Contacts } from 'expo';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { db } from '../src/config.js';
@@ -25,12 +26,12 @@ let get_all = async () => {
   snapshot.forEach(doc => {
     db_event = doc.data()
     event = {
-      'name': db_event['name'],
+      'name': db_event['name'], 
       'type': db_event['type'],
       'subtitle': db_event['subtitle'],
       'address': db_event['address'],
       'photoURL': db_event['photoURL'],
-    }
+    };
     events.push(event);
   });
   return events;
@@ -143,6 +144,7 @@ export default class HomeScreen extends React.Component {
             renderItem={ ({item}) => <EventPane event_data={item} navigation={navigate}/>}      
           />
         </ScrollView>
+        <CreatePlanButton/>
       </View>
     );
   };
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
   },
   scrollSwipeContainer: {
     flex: .88,
-    backgroundColor: 'rgb(248, 248, 249)',
+    backgroundColor: 'rgb(238, 238, 238)',
   },
   f1: {backgroundColor: "#e91e63"},
   f2: {backgroundColor: "#ff4081"},
