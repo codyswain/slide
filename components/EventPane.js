@@ -26,109 +26,115 @@ export default class EventPane extends React.Component {
     event_address = this.props.event_data['address'];
     event_photoURL = this.props.event_data['photoURL'];
 
-    // <Text style={styles.headerTextType}>{event_subtitle}</Text>
     return (
-      <TouchableOpacity onPress={this._onPress}>
-        <View style={styles.main}>
-          <LinearGradient
-            colors={['rgba(0,0,0,.8)', 'rgba(0,0,0,0)']}
-            style={styles.paneHeaderContainer}>
-            <Text style={styles.headerTextName}>{event_name}</Text>
-            <Text style={styles.headerTextAddress}>{event_address}</Text>
-          </LinearGradient>
+        <View style={styles.container}>
+          <TouchableOpacity style={{flex: 5}}> 
+            <LinearGradient
+              colors={['rgba(0,0,0,.8)', 'rgba(0,0,0,0)']}
+              style={styles.headerContainer}>
+              <Text style={styles.headerTextName}>{event_name}</Text>
+              <Text style={styles.headerTextAddress}>{event_address}</Text>
+            </LinearGradient>
 
-          <View style={styles.paneImageContainer}>
-            <Image resizeMode="cover" style={styles.paneImage}
-                   source={{ uri: event_photoURL }}/>
-          </View>
+            <View style={styles.imageContainer}>
+              <Image resizeMode="cover" style={styles.image}
+                     source={{ uri: event_photoURL }}/>
+            </View>
+          </TouchableOpacity>
 
-          <View style={styles.paneFooterContainer}>
-            <Text style={styles.paneFooterText1}>Save</Text>
-            <Text style={styles.paneFooterText2}>More</Text>
+          <View style={styles.footerContainer}>
+            <TouchableOpacity style={{flex: 1}}>
+              <View style={styles.footerButton}>
+                <Text style={styles.footerTextSave}>Save</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={{flex: 1}}>
+              <View style={styles.footerButton}>
+                <Text style={styles.footerTextMore}>More</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
-      </TouchableOpacity>
     );
 	}
 }
 
 const styles = StyleSheet.create({
-  main: {
+  /* Event Container */ 
+  container: {
     marginRight: 10,
     marginLeft: 10,
     marginTop: 12,
     height: 260,
     borderRadius: 2,
     backgroundColor: "white",
-    shadowOffset:{  width: .1 ,  height: .5,  },
-    shadowColor: 'rgb(230, 230, 230)',
-    shadowOpacity: .8,
     overflow: 'hidden',
   },
-  paneHeaderContainer: {
+
+  /* Header */
+  headerContainer: {
+    flex: .4,
+    zIndex: 1,
     position: 'absolute',
     top: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-    height: '40%',
     width: '100%',
-    zIndex: 1,
     paddingTop: '2%',
     paddingLeft: '3%',
+    paddingRight: '3%',
   },
-  paneFooterContainer: {
-    position: 'absolute',
-    bottom: 0,
-    backgroundColor: 'white', 
-    height: '16%',
-    width: '100%',
-    zIndex: 1,
-    shadowOffset:{  width: .2 ,  height: .2,  },
-    shadowColor: 'black',
-    shadowOpacity: 1,
-
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  paneFooterText1: {
-    color: 'green',
-    fontFamily: 'System',
-    fontSize: 16, 
-    fontWeight: '300',
-  },
-  paneFooterText2: {
-    color: 'grey',
-    fontSize: 16, 
+  headerTextName: {
+    fontSize: 26,
     fontFamily: 'System',
     fontWeight: '400',
+    color: 'white',
   },
-  paneImageContainer: {
+  headerTextType: {
+    fontSize: 14,
+    fontFamily: 'System',
+    fontWeight: 'bold',
+    color: '#e91e63',
+  },
+  headerTextAddress: {
+    fontSize: 10,
+    fontFamily: 'System',
+    color: 'white',
+  },
+  
+  /* Image */ 
+  imageContainer: {
     flex: 1,
-    width: '100%', 
   },
-  paneImage: {
+  image: {
     flex: 1,
     alignSelf: 'stretch',
     height: undefined,
     width: undefined,
   },
-  headerTextName: {
-    // color: 'rgb(68, 73, 84)',
-    color: 'white',
-    fontSize: 26,
+  
+  /* Footer */
+  footerContainer: {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flex: 1.1, 
+    backgroundColor: 'white', 
+    flexDirection: 'row',
+  },
+  footerButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+ },
+  footerTextSave: {
+    color: 'green',
+    fontFamily: 'System',
+    fontSize: 16, 
+    fontWeight: '300',
+  },
+  footerTextMore: {
+    color: 'grey',
+    fontSize: 16, 
     fontFamily: 'System',
     fontWeight: '400',
   },
-  headerTextType: {
-    color: '#e91e63',
-    fontSize: 14,
-    fontFamily: 'System',
-    fontWeight: 'bold',
-  },
-  headerTextAddress: {
-    color: 'white',
-    fontSize: 10,
-    fontFamily: 'System',
-    // fontWeight: 'bold',
-  },
-})
+});
