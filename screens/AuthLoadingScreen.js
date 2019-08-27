@@ -6,10 +6,11 @@ import {
   StatusBar,
   ActivityIndicator,  
 } from 'react-native';
+import { fire } from '../src/config.js';
 
 export default class AuthLoadingScreen extends React.Component {
   constructor(props) {
-    super(props);
+    super(props); 
     this._bootstrapAsync();
   }
 
@@ -19,7 +20,6 @@ export default class AuthLoadingScreen extends React.Component {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 

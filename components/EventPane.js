@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import { 
-  Text, 
+  Text,
+  Alert, 
+  AsyncStorage,
   View, 
   StyleSheet, 
   TouchableOpacity, 
   Image
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'; 
+import { fire } from '../src/config.js';
 
 export default class EventPane extends React.Component {
   constructor(props){
@@ -43,7 +46,7 @@ export default class EventPane extends React.Component {
           </TouchableOpacity>
 
           <View style={styles.footerContainer}>
-            <TouchableOpacity style={{flex: 1}}>
+            <TouchableOpacity onPress={this._saveItem} style={{flex: 1}}>
               <View style={styles.footerButton}>
                 <Text style={styles.footerTextSave}>Save</Text>
               </View>
@@ -56,7 +59,18 @@ export default class EventPane extends React.Component {
           </View>
         </View>
     );
-	}
+  }
+  
+  _saveItem = async () => {
+    var user = fire.auth().currentUser;
+    console.log(user);
+    var token = await AsyncStorage.getItem('userToken');
+    console.log(token);
+    
+
+    //user_info = await AsyncStorage.getItem('userInfo');
+    //Alert.alert(user_info);
+  };
 }
 
 const styles = StyleSheet.create({

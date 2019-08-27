@@ -24,7 +24,7 @@ let get_all = async () => {
   let snapshot = await db.collection("events").get();
   events = [];
   snapshot.forEach(doc => {
-    db_event = doc.data()
+    db_event = doc.data();
     event = {
       'name': db_event['name'], 
       'type': db_event['type'],
@@ -153,7 +153,7 @@ export default class HomeScreen extends React.Component {
     let all_events = await get_all();
     this.setState({
       events: all_events,
-    })
+    });
   };
 
   _signOut = async () => {
