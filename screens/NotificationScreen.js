@@ -7,11 +7,10 @@ import {
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions =  ({ navigation }) => ({
-    title: 'Slide',
+    title: 'Groups',
     headerTitleStyle: {
       fontSize: 24,
       fontFamily: 'System',
-      fontStyle: 'italic',
       color: 'rgb(68, 73, 84)',
     },
     headerStyle: {
@@ -27,7 +26,7 @@ export default class SettingsScreen extends React.Component {
     return (
       <View style={styles.container}>
 	<Text>
-	  This is the social screen
+	  This is where you view created events. 
 	</Text> 
       </View>
     );

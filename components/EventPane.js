@@ -9,11 +9,17 @@ import {
   Image
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'; 
-import { fire } from '../src/config.js';
+import { db, fire } from '../src/config.js';
 
 export default class EventPane extends React.Component {
   constructor(props){
     super(props);
+    this.event_id = props.event_data['id'];
+    this.event_name = props.event_data['name'];
+    this.event_type = props.event_data['type'];
+    this.event_subtitle = props.event_data['subtitle'];
+    this.event_address = props.event_data['address'];
+    this.event_photoURL = props.event_data['photoURL'];
   }
   
   _onPress = () => {  
@@ -22,12 +28,12 @@ export default class EventPane extends React.Component {
   };
 
   render(){
-    
-    event_name = this.props.event_data['name'];
-    event_type = this.props.event_data['type'];
-    event_subtitle = this.props.event_data['subtitle'];
-    event_address = this.props.event_data['address'];
-    event_photoURL = this.props.event_data['photoURL'];
+    event_id = this.event_id;
+    event_name = this.event_name;
+    event_type = this.event_type;
+    event_subtitle = this.event_subtitle;
+    event_address = this.event_address;
+    event_photoURL = this.event_photoURL; 
 
     return (
         <View style={styles.container}>
@@ -63,10 +69,12 @@ export default class EventPane extends React.Component {
   
   _saveItem = async () => {
     var user = fire.auth().currentUser;
-    console.log(user);
-    var token = await AsyncStorage.getItem('userToken');
-    console.log(token);
-    
+    console.log(this.event_id);
+    console.log(this.event_type);
+
+    // Save the event in the users collection on firestore
+    base = db.collection('users').doc(user.uid).collection('events-saved-by-user');
+    base.doc(this.event_id).set({});
 
     //user_info = await AsyncStorage.getItem('userInfo');
     //Alert.alert(user_info);

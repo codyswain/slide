@@ -17,25 +17,7 @@ import EventPane from '../components/EventPane';
 import CreatePlanButton from '../components/CreatePlanButton';
 import { Contacts } from 'expo';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
-import { db } from '../src/config.js';
-
-// Retrieve all events in firebase
-let get_all = async () => {
-  let snapshot = await db.collection("events").get();
-  events = [];
-  snapshot.forEach(doc => {
-    db_event = doc.data();
-    event = {
-      'name': db_event['name'], 
-      'type': db_event['type'],
-      'subtitle': db_event['subtitle'],
-      'address': db_event['address'],
-      'photoURL': db_event['photoURL'],
-    };
-    events.push(event);
-  });
-  return events;
-}
+import { db, fire } from '../src/config.js';
 
 export default class HomeScreen extends React.Component {
   // Note: To bind a function into the navigation options
@@ -82,16 +64,15 @@ export default class HomeScreen extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = {actions: []}
+    this.state = {
+      isLoading: true,
+      events: [],
+    };
   };
 
   componentDidMount(){
-    _this = this; 
-    events_list = [];
-    this.setState({
-      events: events_list,
-    });
-    this._updateEventContainers();
+    _this = this; // For binding functions to navigation components in header
+    this.getEvents();
   };
 
   render() {
@@ -144,18 +125,49 @@ export default class HomeScreen extends React.Component {
             renderItem={ ({item}) => <EventPane event_data={item} navigation={navigate}/>}      
           />
         </ScrollView>
-        <CreatePlanButton/>
+        <CreatePlanButton navigation={this.props.navigation}/>
       </View>
     );
   };
 
-  _updateEventContainers = async () => {
-    let all_events = await get_all();
-    this.setState({
-      events: all_events,
+  // Retrieves firestore events recommended for user
+  getEvents = async () => {
+    let user = await fire.auth().currentUser;
+    let snapshot =
+        await db.collection("users").doc(user.uid).collection('events-to-recommend').get();
+
+    ids = []; 
+    snapshot.forEach(doc => {
+      ids.push(doc.id);    
+    });
+
+    all_events = [];
+    ids.forEach( async (item, index) => {
+      doc = await db.collection("events").doc(item).get();
+      db_event = doc.data();
+      if (db_event){
+        event = {
+          'id': doc.id,
+          'name': db_event['name'], 
+          'type': db_event['type'],
+          'subtitle': db_event['subtitle'],
+          'address': db_event['address'],
+          'photoURL': db_event['photoURL'],
+        };
+        this.setState(state => {
+          const events = state.events.concat(event);
+
+          return {
+            events
+          };
+        });
+     } else {
+        console.log("Undefined event");
+      };
     });
   };
 
+  // Removes a users token, and navigates them to authentication screen.
   _signOut = async () => {
     await AsyncStorage.removeItem('userToken');
     this.props.navigation.navigate('Auth');
