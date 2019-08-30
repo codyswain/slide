@@ -45,6 +45,7 @@ export default class BookmarksScreen extends React.Component {
 
     // Event ids which are loaded in cards, and displayed to user
     this.loadedEvents = {};
+    this.loadedEventsList = [];
 
     // Adds subscription to when a user clicks on the bookmarks tab icon
     // Updates the event cards that are displayed
@@ -69,9 +70,11 @@ export default class BookmarksScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.scrollSwipeContainer}>
           <FlatList
-            data={this.state.events}
+            data={this.loadedEventsList}
+            extraData={this.state}
             keyExtractor={(item, index) => index.toString()}
             renderItem={ ({item}) => <SavedEventPane
+                                       refreshHandler={this.updateEventCards}
                                        event_data={item}
                                        navigation={navigate}/>}   
           />
@@ -83,12 +86,15 @@ export default class BookmarksScreen extends React.Component {
   // Wrapper to execute _getSavedEventIds, then _loadNewSavedEvents
   updateEventCards = async () => {
     this._getSavedEventIds().then( () => {
-      this._loadNewSavedEvents();
+      this._loadNewSavedEvents().then( () => {
+        this._updateEventCards();
+      });
     });
   }
 
   // Retrieves events ids for a user from firestore
   _getSavedEventIds = async () => {
+    this.savedEventIds = {}; 
     let user = await fire.auth().currentUser;
     let snapshot =
         await db.collection("users").doc(user.uid).collection('events-saved-by-user').get();
@@ -99,15 +105,12 @@ export default class BookmarksScreen extends React.Component {
 
   // Loads new unique events into state variable
   _loadNewSavedEvents = async () => {
+    // Add events in firestore, that aren't in loadedEvents
     for (var id in this.savedEventIds){
       if (!(id in this.loadedEvents)){
         doc = await db.collection("events").doc(id).get();
         db_event = doc.data();
         if (db_event){
-          this.setState({
-            isLoadingEvents: true,
-          });
-          
           event = {
             'id': doc.id,
             'name': db_event['name'], 
@@ -117,22 +120,32 @@ export default class BookmarksScreen extends React.Component {
             'photoURL': db_event['photoURL'],
           };
           this.loadedEvents[doc.id] = event;
-          this.setState(state => {
-            const events = state.events.concat(event);
-            return {
-              events
-            };
-          });
-          
-          this.setState({
-            isLoadingEvents: false, 
-          });
-          
         } else {
           console.log("Undefined events");
         }
       }
     }
+
+    // Delete events that have been removed from firestore
+    id_list = []; 
+    for (var id in this.loadedEvents){
+      if (!(id in this.savedEventIds)){
+        delete this.loadedEvents[id];
+      }
+    }
+  }
+
+  _updateEventCards = async () => {
+    this.setState({
+      isLoading: true, 
+    });
+    this.loadedEventsList = [];
+    for (var key in this.loadedEvents){
+      this.loadedEventsList.push(this.loadedEvents[key]);
+    }
+    this.setState({
+      isLoading: false, 
+    });
     
   }
 
