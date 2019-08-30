@@ -10,7 +10,7 @@ import {
   Button,
   Dimensions,
 } from 'react-native';
-import EventPane from '../components/EventPane';
+import SavedEventPane from '../components/SavedEventPane';
 import { db, fire } from '../src/config.js';
 
 export default class BookmarksScreen extends React.Component {
@@ -33,6 +33,7 @@ export default class BookmarksScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      isLoadingEvents: false, 
       events: [],
     };
 
@@ -70,7 +71,9 @@ export default class BookmarksScreen extends React.Component {
           <FlatList
             data={this.state.events}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={ ({item}) => <EventPane event_data={item} navigation={navigate}/>}    
+            renderItem={ ({item}) => <SavedEventPane
+                                       event_data={item}
+                                       navigation={navigate}/>}   
           />
         </ScrollView>
       </View>
@@ -101,6 +104,10 @@ export default class BookmarksScreen extends React.Component {
         doc = await db.collection("events").doc(id).get();
         db_event = doc.data();
         if (db_event){
+          this.setState({
+            isLoadingEvents: true,
+          });
+          
           event = {
             'id': doc.id,
             'name': db_event['name'], 
@@ -116,11 +123,17 @@ export default class BookmarksScreen extends React.Component {
               events
             };
           });
+          
+          this.setState({
+            isLoadingEvents: false, 
+          });
+          
         } else {
           console.log("Undefined events");
         }
       }
     }
+    
   }
 
   
