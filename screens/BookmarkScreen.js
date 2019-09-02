@@ -18,6 +18,7 @@ export default class BookmarksScreen extends React.Component {
     title: 'Bookmarks',
     headerTitleStyle: {
       fontSize: 24,
+      fontWeight: '300',
       fontFamily: 'System',
       color: 'rgb(68, 73, 84)',
     },

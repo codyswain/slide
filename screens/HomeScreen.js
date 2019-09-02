@@ -28,6 +28,7 @@ export default class HomeScreen extends React.Component {
     headerTitleStyle: {
       fontSize: 24,
       fontFamily: 'System',
+      fontWeight: "300",
       fontStyle: 'italic',
       color: 'rgb(68, 73, 84)',
     },
@@ -53,7 +54,7 @@ export default class HomeScreen extends React.Component {
       <TouchableOpacity onPress={() => _this._signOut()}> 
         <View style={{marginRight: 10}}>
           <MaterialIcons
-            name="settings"
+            name="filter-list"
             size={26}
             color="rgb(68, 73, 84)"
           />
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
     flex: 1, 
   },
   filterContainer: {
-    flex: .12,
+    flex: .08,
     alignItems: 'center', 
     shadowOffset:{  width: 0 ,  height: .2,  },
     shadowColor: 'rgb(68, 73, 84)',
@@ -197,8 +198,8 @@ const styles = StyleSheet.create({
     // height: 58, 
     // borderRadius: 50, 
     width: 75,
-    height: 50, 
-    borderRadius: 6, 
+    height: 28, 
+    borderRadius: 1, 
     marginLeft: 6,
     shadowOffset: { width: 0, height: .1 },
     shadowColor: 'rgb(68, 73, 84)',
@@ -220,7 +221,7 @@ const styles = StyleSheet.create({
   filterButtonText: {
     fontSize: 14,
     fontFamily: 'System',
-    fontWeight: 'bold',
+    fontWeight: '500',
     color: 'white',
   },
 });

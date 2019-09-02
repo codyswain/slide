@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     marginTop: 12,
-    height: 260,
+    height: 210,
     borderRadius: 2,
     backgroundColor: "white",
     overflow: 'hidden',
@@ -95,17 +95,17 @@ const styles = StyleSheet.create({
 
   /* Header */
   headerContainer: {
-    flex: .4,
     zIndex: 1,
     position: 'absolute',
     top: 0,
+    height: '50%',
     width: '100%',
     paddingTop: '2%',
     paddingLeft: '3%',
     paddingRight: '3%',
   },
   headerTextName: {
-    fontSize: 26,
+    fontSize: 24,
     fontFamily: 'System',
     fontWeight: '400',
     color: 'white',
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    flex: 1.1, 
+    flex: 1, 
     backgroundColor: 'white', 
     flexDirection: 'row',
   },

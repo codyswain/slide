@@ -10,6 +10,7 @@ export default class SettingsScreen extends React.Component {
     title: 'Groups',
     headerTitleStyle: {
       fontSize: 24,
+      fontWeight: '300',
       fontFamily: 'System',
       color: 'rgb(68, 73, 84)',
     },
