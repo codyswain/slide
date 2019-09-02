@@ -32,4 +32,5 @@ expo start
 ```
 
 ### Photos
+[Imgur](https://imgur.com/iaVkFzm)
 <img src="https://imgur.com/iaVkFzm" width="400px">
