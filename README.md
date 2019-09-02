@@ -1,4 +1,4 @@
-## Voila
+## Slide
 
 This app is built in [React Native](https://facebook.github.io/react-native/) and the [Expo Toolchain](https://expo.io/)
 
