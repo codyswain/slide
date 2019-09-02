@@ -1,9 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet, 
+} from 'react-native';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions =  ({ navigation }) => ({
-    title: 'Voilá',
+    title: 'Groups',
     headerTitleStyle: {
       fontSize: 24,
       fontFamily: 'System',
@@ -19,12 +23,20 @@ export default class SettingsScreen extends React.Component {
   });
 
   render() {
-  	return (
-	    <View>
-	    	<Text>
-	    		This is the social screen
-	    	</Text> 
-	    </View>
-	  );
+    return (
+      <View style={styles.container}>
+	<Text>
+	  This is where you view created events. 
+	</Text> 
+      </View>
+    );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
