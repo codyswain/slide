@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
-import { 
+import {
   Text,
-  Alert, 
+  Alert,
   AsyncStorage,
-  View, 
-  StyleSheet, 
-  TouchableOpacity, 
-  Image
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image, 
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient'; 
+import { LinearGradient } from 'expo-linear-gradient';
 import { db, fire } from '../src/config.js';
 
-export default class EventPane extends React.Component {
+export default class SavedEventPane extends React.Component {
   constructor(props){
     super(props);
     this.event_id = props.event_data['id'];
@@ -21,11 +21,10 @@ export default class EventPane extends React.Component {
     this.event_address = props.event_data['address'];
     this.event_photoURL = props.event_data['photoURL'];
   }
-  
-  _onPress = () => {  
-    // color_theme = this.props.action_data['color']
-    // this.props.navigation('Contact', {color: color_theme})
-  };
+
+  _onPress = () => {
+    // Display more event data on
+  }
 
   render(){
     event_id = this.event_id;
@@ -36,7 +35,8 @@ export default class EventPane extends React.Component {
     event_photoURL = this.event_photoURL; 
 
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
+        
           <TouchableOpacity style={{flex: 5}}> 
             <LinearGradient
               colors={['rgba(0,0,0,.8)', 'rgba(0,0,0,0)']}
@@ -44,17 +44,16 @@ export default class EventPane extends React.Component {
               <Text style={styles.headerTextName}>{event_name}</Text>
               <Text style={styles.headerTextAddress}>{event_address}</Text>
             </LinearGradient>
-
             <View style={styles.imageContainer}>
               <Image resizeMode="cover" style={styles.image}
                      source={{ uri: event_photoURL }}/>
             </View>
           </TouchableOpacity>
-
+          
           <View style={styles.footerContainer}>
-            <TouchableOpacity onPress={this._saveItem} style={{flex: 1}}>
+            <TouchableOpacity onPress={this._deleteItem} style={{flex: 1}}>
               <View style={styles.footerButton}>
-                <Text style={styles.footerTextSave}>Save</Text>
+                <Text style={styles.footerTextDelete}>Delete</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={{flex: 1}}>
@@ -63,24 +62,23 @@ export default class EventPane extends React.Component {
               </View>
             </TouchableOpacity>
           </View>
+        
         </View>
-      
     );
   }
-  
-  _saveItem = async () => {
+
+  _deleteItem = () => {
     var user = fire.auth().currentUser;
-    console.log(this.event_id);
-    console.log(this.event_type);
-
-    // Save the event in the users collection on firestore
     base = db.collection('users').doc(user.uid).collection('events-saved-by-user');
-    base.doc(this.event_id).set({});
-
-    //user_info = await AsyncStorage.getItem('userInfo');
-    //Alert.alert(user_info);
-  };
+    base.doc(this.event_id).delete().then( () => {
+      this.props.refreshHandler();
+    }).catch( (error) => {
+      console.log("Error removing document: ", error);
+    });
+  }
+  
 }
+
 
 const styles = StyleSheet.create({
   /* Event Container */ 
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     marginTop: 12,
-    height: 210,
+    height: 200,
     borderRadius: 2,
     backgroundColor: "white",
     overflow: 'hidden',
@@ -106,7 +104,7 @@ const styles = StyleSheet.create({
     paddingRight: '3%',
   },
   headerTextName: {
-    fontSize: 24,
+    fontSize: 26,
     fontFamily: 'System',
     fontWeight: '400',
     color: 'white',
@@ -139,7 +137,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    flex: 1, 
+    flex: 1.1, 
     backgroundColor: 'white', 
     flexDirection: 'row',
   },
@@ -148,8 +146,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
  },
-  footerTextSave: {
-    color: 'green',
+  footerTextDelete: {
+    color: 'red',
     fontFamily: 'System',
     fontSize: 16, 
     fontWeight: '300',

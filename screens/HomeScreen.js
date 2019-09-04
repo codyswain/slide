@@ -14,7 +14,8 @@ import {
 } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import EventPane from '../components/EventPane';
-import CreatePlanButton from '../components/CreatePlanButton';
+import CreateButton from '../components/CreateButton';
+import CreateMenu from '../components/CreateMenu';
 import { Contacts } from 'expo';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { db, fire } from '../src/config.js';
@@ -68,6 +69,7 @@ export default class HomeScreen extends React.Component {
     this.state = {
       isLoading: true,
       events: [],
+      toggleCreateMenu: false,
     };
   };
 
@@ -126,10 +128,38 @@ export default class HomeScreen extends React.Component {
             renderItem={ ({item}) => <EventPane event_data={item} navigation={navigate}/>}      
           />
         </ScrollView>
-        <CreatePlanButton navigation={this.props.navigation}/>
+
+        {this._toggleCreateMenu()}
+
+        <CreateButton
+          positionStyle={{right: 20, bottom: 20}}
+          onPress={this._createButtonHandler}
+          
+        />
+
       </View>
     );
   };
+
+
+  // Logic conditional rendering of menu for creating posts of plans
+  _toggleCreateMenu = () => {
+    if (this.state.toggleCreateMenu){
+      console.log("Toggle is pressed");
+      return (
+        <CreateMenu positionStyle={{right: 20, bottom: 85}}/>
+      );
+    } else {
+      return (null); 
+    }
+  }
+
+  // Hide or show the menu for creating new post or plan
+  _createButtonHandler = () => {
+    this.setState(prevState => ({
+      toggleCreateMenu: !prevState.toggleCreateMenu,
+    }));
+  }
 
   // Retrieves firestore events recommended for user
   getEvents = async () => {
@@ -157,7 +187,6 @@ export default class HomeScreen extends React.Component {
         };
         this.setState(state => {
           const events = state.events.concat(event);
-
           return {
             events
           };
