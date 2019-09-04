@@ -1,0 +1,30 @@
+import React, { Component } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+} from 'react-native'; 
+
+/* --- About ---
+This screen opens when the use hits the button 'Plan' on the home screen.
+It should pop onto the HomeStack, and should be easily exited. 
+Must be passed a navigation handler. 
+*/
+
+export default class CreatePlanScreen extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    return (
+      <View style={{flex: 1}}>
+      </View>
+    );
+  };
+}
+
+
+const styles = StyleSheet.create({
+
+});

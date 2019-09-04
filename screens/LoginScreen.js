@@ -1,13 +1,14 @@
 import React from 'react';
 import {
-	View,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	Async,
-	Alert, 
-	Image, 
-	AsyncStorage
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Async,
+  Alert, 
+  Image,
+  ImageBackground,
+  AsyncStorage
 } from 'react-native';
 import * as Facebook from 'expo-facebook'; 
 import { fire } from '../src/config.js';
@@ -28,34 +29,45 @@ export default class LoginScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.backgroundContainer}> 
-    	<View style={styles.titleContainer}>
-    	  <Text style={styles.titleText}>Slide</Text>
-    	</View>
-        
-    	<View style={styles.subtitleContainer}>
-    	  <Text style={styles.subtitleText}>Make Meaningful Memories.</Text>
-    	</View>
+      <ImageBackground
+        source={require('../assets/images/login/background.png')}
+        style={styles.backgroundContainer}
+      >
+        <View style={styles.spacing1}></View>
+        <View style={styles.mainTitleContainer}>
+          <Image
+            source={require('../assets/images/login/slide-text.png')}
+            style={styles.mainText}
+          />
+        </View>
 
-    	<View style={styles.imageContainer}>
-    	  <Image 
-    	    style={styles.imageStyling}
-    	    source={require('../assets/images/login_tree_photo.jpg')}
-    	  />
-    	</View>
+        <View style={styles.mainIconContainer}>
+          <Image
+            source={require('../assets/images/login/martini-icon.png')}
+            style={styles.mainIcon}
+          />
+        </View>
         
-	<TouchableOpacity onPress={this._logIn}>
-	  <View style={styles.loginButton}>
-	    <Text style={styles.loginButtonText}>Sign in with Facebook</Text>
-	  </View>
-	</TouchableOpacity>
-
-	<TouchableOpacity onPress={this._checkUser}>
-	  <View style={styles.signupButton}>
-	    <Text style={styles.signupButtonText}>Sign up</Text>
-	  </View>
-	</TouchableOpacity>
-      </View> 
+        <View style={styles.spacing2}></View>
+        <View style={styles.loginButtonContainer}>
+          <TouchableOpacity onPress={this._login}>
+            <Image
+              source={require('../assets/images/login/login-button.png')}
+              style={styles.loginButton}
+            />
+	  </TouchableOpacity>
+        </View>
+        
+        <View style={styles.signupButtonContainer}>
+	  <TouchableOpacity onPress={this._checkUser}>
+            <Image source={require('../assets/images/login/signup-button.png')}
+                   style={styles.signupButton}
+            />
+	  </TouchableOpacity>
+        </View>
+        <View style={styles.spacing3}></View>
+    	
+      </ImageBackground>      
     );
   }
 
@@ -64,7 +76,7 @@ export default class LoginScreen extends React.Component {
     console.log(user);
   };
 
-  _logIn = async () => {
+  _login = async () => {
     try {
       const { 
 	type,
@@ -109,79 +121,52 @@ export default class LoginScreen extends React.Component {
 /* ---- Styling ---- */ 
 const styles = StyleSheet.create({
   backgroundContainer: {
-    flex: 1, 
-    backgroundColor: "white",
-  },
-  titleContainer: {
-    marginTop: 48, 
-    height: 60,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center', 
   },
-  titleText: {
-    color: 'black',
-    fontSize: 41,
-    fontFamily: 'System',
-    fontWeight: 'bold',
-    color: "#3b5998",
+  spacing1: {
+    flex: 0,
   },
-  subtitleContainer: {
-    height: 20,
-    alignItems: 'center',
-    justifyContent: 'center', 
+  mainTitleContainer: {
+    flex: .25,
+    justifyContent: 'center',
   },
-  subtitleText: {
-    color: 'black',
-    fontSize: 14,
-    fontWeight: 'bold',
-    fontFamily: 'System',
+  mainIconContainer: {
+    flex: .3,
+    justifyContent: 'center',
   },
-  imageContainer: {
-    height: 360,
-    alignItems: 'center',
-    justifyContent: 'center', 
+  spacing2: {
+    flex: .18,
   },
-  imageStyling: {
-    flex: 1, 
-    resizeMode: 'contain',
+  loginButtonContainer: {
+    flex: .10,
+    justifyContent: 'center',
+  },
+  signupButtonContainer: {
+    flex: .10,
+    justifyContent: 'center',
+  },
+  spacing3: {
+    flex: .07
+  },
+  
+  mainText: {
+    width: 100,
+    height: 38,
+  },
+  mainIcon: {
+    width: 80,
+    height: 80,
   },
   loginButton: {
-    marginRight: 19,
-    marginLeft: 19,
-    height: 58,
-    borderRadius: 30,
-    backgroundColor: "#3b5998",
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowOffset: { width: .1 , height: .5, },
-    shadowColor: 'rgb(230, 230, 230)',
-    shadowOpacity: .8,
-  },
-  loginButtonText: {
-    color: 'white',
-    fontSize: 17,
-    fontFamily: 'System',
-    fontWeight: 'bold',
+    width: 300,
+    height: 55,
   },
   signupButton: {
-    marginRight: 19,
-    marginLeft: 19,
-    marginTop: 12,
-    height: 58,
-    borderRadius: 30,
-    borderWidth: 2,
-    borderColor: "#3b5998",
-    backgroundColor: "white",
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowOffset:{  width: .1 ,  height: .5,  },
-    shadowColor: 'rgb(230, 230, 230)',
-    shadowOpacity: .8,
+    width: 300,
+    height: 55,
   },
-  signupButtonText: {
-    color: '#3b5998',
-    fontSize: 17,
-    fontFamily: 'System',
-    fontWeight: 'bold',
+  spacing3: {
   },
 })
