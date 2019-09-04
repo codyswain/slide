@@ -1,4 +1,4 @@
-## Voila
+## Slide
 
 This app is built in [React Native](https://facebook.github.io/react-native/) and the [Expo Toolchain](https://expo.io/)
 
@@ -12,12 +12,12 @@ npm install -g expo-cli
 
 Clone the repo to your preferred directory
 ```bash
-git clone https://github.com/looseroots/voila-facebook-firebase.git
+git clone https://github.com/looseroots/slide.git
 ```
 
 Install necessary node modules
 ```bash
-cd voila-facebook-firebase
+cd slide
 npm install
 ```
 

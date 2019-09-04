@@ -87,15 +87,16 @@ export default class LoginScreen extends React.Component {
         const credential = fire.auth.FacebookAuthProvider.credential(token);
 
         // Sign in to firebase with credentials from Facebook user
-        fire.auth().signInWithCredential(credential).catch(function(error) {
+        fire.auth().signInWithCredential(credential).then(function(){
+          // Navigate to home page
+    	  this.props.navigation.navigate('App');
+        }).catch(function(error) {
           var errorCode = error.code;
           var errorMessage = error.message;
           var email = error.email;
           var credential = error.credential;
         });
 
-        // Navigate to home page
-    	this.props.navigation.navigate('App');
       } else {
 	// type === 'cancel'
       }

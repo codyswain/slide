@@ -169,9 +169,13 @@ export default class HomeScreen extends React.Component {
   };
 
   // Removes a users token, and navigates them to authentication screen.
-  _signOut = async () => {
-    await AsyncStorage.removeItem('userToken');
-    this.props.navigation.navigate('Auth');
+  _signOut = () => {
+    AsyncStorage.removeItem('userToken');
+    fire.auth().signOut().then(function(){
+      this.props.navigation.navigate('Auth');
+    }).catch(function() {
+      console.log("Not properly signed out"); 
+    });
   };
 }
 
