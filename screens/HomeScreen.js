@@ -16,6 +16,7 @@ import { ExpoLinksView } from '@expo/samples';
 import EventPane from '../components/EventPane';
 import CreateButton from '../components/CreateButton';
 import CreateMenu from '../components/CreateMenu';
+import FilterButton from '../components/FilterButton';
 import { Contacts } from 'expo';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { db, fire } from '../src/config.js';
@@ -27,11 +28,13 @@ export default class HomeScreen extends React.Component {
   static navigationOptions =  ({ navigation }) => ({
     title: 'Slide',
     headerTitleStyle: {
-      fontSize: 24,
+      fontSize: 23,
       fontFamily: 'System',
       fontWeight: "300",
       fontStyle: 'italic',
-      color: 'rgb(68, 73, 84)',
+      color: 'rgb(251, 80, 70)',
+      //color: 'rgb(251, 148, 42)',
+      //color: 'rgb(68, 73, 84)',
     },
     headerStyle: {
       backgroundColor: '#fff',
@@ -89,37 +92,24 @@ export default class HomeScreen extends React.Component {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           >
-            <TouchableOpacity onPress={this._updateEventContainers}>
-              <View style={[styles.filterButton, styles.f1]}>
-                <Text style={styles.filterButtonText}>Food</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._updateEventContainers}>
-              <View style={[styles.filterButton, styles.f2]}>
-                <Text style={styles.filterButtonText}>Drink</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._updateEventContainers}>
-              <View style={[styles.filterButton, styles.f3]}>
-                <Text style={styles.filterButtonText}>Active</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._updateEventContainers}>
-              <View style={[styles.filterButton, styles.f4]}>
-                <Text style={styles.filterButtonText}>Movie</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._updateEventContainers}>
-              <View style={[styles.filterButton, styles.f5]}>
-                <Text style={styles.filterButtonText}>Park</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._updateEventContainers}>
-              <View style={[styles.filterButton, styles.f6]}>
-                <Text style={styles.filterButtonText}>More</Text>
-              </View>
-            </TouchableOpacity>
-            </ScrollView>
+            <FilterButton
+              text={"Food"}
+              icon={<MaterialIcons name="local-pizza" size={20} color="#e91e63"/>}
+              selected={true}
+            />
+            <FilterButton
+              text={"Drink"}
+              icon={<MaterialIcons name="local-bar" size={20} color="#ff4081"/>}/>
+            <FilterButton
+              text={"Cafe"}
+              icon={<MaterialIcons name="local-cafe" size={20} color="#5677fc"/>}/>
+            <FilterButton
+              text={"Dining"}
+              icon={<MaterialIcons name="local-dining" size={20} color="#40c4ff"/>}/>
+            <FilterButton
+              text={"Movie"}
+              icon={<MaterialIcons name="local-movies" size={20} color="#5af158"/>}/>
+          </ScrollView>
         </View>
         <ScrollView style={styles.scrollSwipeContainer}>
           <FlatList
@@ -133,19 +123,16 @@ export default class HomeScreen extends React.Component {
 
         <CreateButton
           positionStyle={{right: 20, bottom: 20}}
-          onPress={this._createButtonHandler}
-          
+          onPress={this._createButtonHandler}      
         />
 
       </View>
     );
   };
 
-
   // Logic conditional rendering of menu for creating posts of plans
   _toggleCreateMenu = () => {
     if (this.state.toggleCreateMenu){
-      console.log("Toggle is pressed");
       return (
         <CreateMenu positionStyle={{right: 20, bottom: 85}}/>
       );
@@ -219,7 +206,7 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     flex: .08,
-    alignItems: 'center', 
+    alignItems: 'center',
     shadowOffset:{  width: 0 ,  height: .2,  },
     shadowColor: 'rgb(68, 73, 84)',
     shadowOpacity: .1,

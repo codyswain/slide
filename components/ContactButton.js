@@ -6,12 +6,12 @@ export default class ContactButton extends React.Component {
     super(props);
     this.state = {
       expanded: false,
-    }
+    };
   }
 
   // Toggle window expansion on or off
   buttonPress = () => {
-    this.setState({expanded: !this.state.expanded})
+    this.setState({expanded: !this.state.expanded});
   }
 
 	render(){
@@ -23,7 +23,6 @@ export default class ContactButton extends React.Component {
       btn_size = {"height": 60};
     }
     btn_style_background = {"backgroundColor": this.props.color};
-
     fname = this.props.data.first_name;
     lname = this.props.data.last_name;
     number = this.props.data.number;
