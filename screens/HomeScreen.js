@@ -134,7 +134,9 @@ export default class HomeScreen extends React.Component {
   _toggleCreateMenu = () => {
     if (this.state.toggleCreateMenu){
       return (
-        <CreateMenu positionStyle={{right: 20, bottom: 85}}/>
+        <CreateMenu
+          navigation={this.props.navigation}
+          positionStyle={{right: 20, bottom: 85}}/>
       );
     } else {
       return (null); 
