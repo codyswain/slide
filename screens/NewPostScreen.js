@@ -9,6 +9,23 @@ import {
 } from 'react-native';
 
 export default class NewPostScreen extends React.Component {
+  static navigationOptions =  ({ navigation }) => ({
+    title: 'Create a Post',
+    headerTitleStyle: {
+      fontSize: 23,
+      fontFamily: 'System',
+      fontWeight: "300",
+      color: 'rgb(68, 73, 84)',
+    },
+    headerStyle: {
+      backgroundColor: '#fff',
+      borderBottomWidth: 0,
+      shadowOffset:{  width: 0 ,  height: .1,  },
+      shadowColor: 'rgb(68, 73, 84)',
+      shadowOpacity: .1,
+    },
+  });
+  
 
   constructor(props){
     super(props);
@@ -21,10 +38,9 @@ export default class NewPostScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={{fontSize: 30}}>Create a Post</Text>
+        <View>
+          <Text>WIP</Text>
         </View>
-        
         <View style={styles.nameInput}>
           <TextInput
             style={{
