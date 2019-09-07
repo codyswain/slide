@@ -8,6 +8,8 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import NewPostScreen from '../screens/NewPostScreen';
+import NewPlanScreen from '../screens/NewPlanScreen';
 import SocialScreen from '../screens/NotificationScreen';
 import BookmarkScreen from '../screens/BookmarkScreen'; 
 
@@ -20,6 +22,8 @@ imported into this file, and managed from here.
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
+  NewPost: NewPostScreen,
+  NewPlan: NewPlanScreen,
 });
 
 HomeStack.navigationOptions = {

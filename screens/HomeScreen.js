@@ -32,9 +32,8 @@ export default class HomeScreen extends React.Component {
       fontFamily: 'System',
       fontWeight: "300",
       fontStyle: 'italic',
-      color: 'rgb(251, 80, 70)',
-      //color: 'rgb(251, 148, 42)',
-      //color: 'rgb(68, 73, 84)',
+      //color: 'rgb(251, 80, 70)',
+      color: 'rgb(68, 73, 84)',
     },
     headerStyle: {
       backgroundColor: '#fff',
@@ -94,21 +93,30 @@ export default class HomeScreen extends React.Component {
           >
             <FilterButton
               text={"Food"}
-              icon={<MaterialIcons name="local-pizza" size={20} color="#e91e63"/>}
+              icon={<MaterialIcons name="local-pizza" size={20} color="white"/>}
               selected={true}
+              color={styles.f1}
             />
             <FilterButton
               text={"Drink"}
-              icon={<MaterialIcons name="local-bar" size={20} color="#ff4081"/>}/>
+              icon={<MaterialIcons name="local-bar" size={20} color="white"/>}
+              color={styles.f2}
+            />
             <FilterButton
               text={"Cafe"}
-              icon={<MaterialIcons name="local-cafe" size={20} color="#5677fc"/>}/>
+              icon={<MaterialIcons name="local-cafe" size={20} color="white"/>}
+              color={styles.f3}
+            />
             <FilterButton
               text={"Dining"}
-              icon={<MaterialIcons name="local-dining" size={20} color="#40c4ff"/>}/>
+              icon={<MaterialIcons name="local-dining" size={20} color="white"/>}
+              color={styles.f4}
+            />
             <FilterButton
               text={"Movie"}
-              icon={<MaterialIcons name="local-movies" size={20} color="#5af158"/>}/>
+              icon={<MaterialIcons name="local-movies" size={20} color="white"/>}
+              color={styles.f5}
+            />
           </ScrollView>
         </View>
         <ScrollView style={styles.scrollSwipeContainer}>
@@ -134,7 +142,9 @@ export default class HomeScreen extends React.Component {
   _toggleCreateMenu = () => {
     if (this.state.toggleCreateMenu){
       return (
-        <CreateMenu positionStyle={{right: 20, bottom: 85}}/>
+        <CreateMenu
+          navigation={this.props.navigation}
+          positionStyle={{right: 20, bottom: 85}}/>
       );
     } else {
       return (null); 

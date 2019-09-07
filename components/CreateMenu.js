@@ -12,21 +12,33 @@ export default class CreateMenu extends React.Component {
     super(props);
   }
 
+  _newPlan = () => {
+    this.props.navigation.navigate('NewPlan');
+  }
+
+  _newPost = () => {
+    this.props.navigation.navigate('NewPost');
+  }
+
   render(){
     return (
       <View style={[styles.container, this.props.positionStyle]}>
         <View style={styles.wrapper}>
           <View style={{flex:.2}}></View>
           
-          <View style={styles.planButton}>
-            <Text style={styles.buttonText}>New Plan</Text>
-          </View>
+          <TouchableOpacity style={{flex: 1}} onPress={this._newPlan}>
+            <View style={styles.planButton}>
+              <Text style={styles.buttonText}>New Plan</Text>
+            </View>
+          </TouchableOpacity>
 
           <View style={{flex:.2}}></View>
-          
-          <View style={styles.postButton}>
-            <Text style={styles.buttonText}>Create Post</Text>
-          </View>
+
+          <TouchableOpacity style={{flex: 1}} onPress={this._newPost}>
+            <View style={styles.postButton}>
+              <Text style={styles.buttonText}>Create Post</Text>
+            </View>
+          </TouchableOpacity>
 
           <View style={{flex:.2}}></View>
         </View>
