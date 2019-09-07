@@ -23,7 +23,7 @@ export default class FilterButton extends React.Component {
 
   render (){
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.color]}>
         {this.props.icon}
         <Text style={styles.text}>{this.props.text}</Text>
         {this._selectedLine()}
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: 'black',
+    color: 'white',
     fontSize: 14,
     fontFamily: 'System',
 //    fontWeight: '500',

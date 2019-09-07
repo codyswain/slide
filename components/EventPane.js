@@ -51,18 +51,18 @@ export default class EventPane extends React.Component {
             </View>
           </TouchableOpacity>
 
-      {/*<View style={styles.footerContainer}>
-            <TouchableOpacity onPress={this._saveItem} style={{flex: 1}}>
-              <View style={styles.footerButton}>
-                <Text style={styles.footerTextSave}>Save</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={{flex: 1}}>
-              <View style={styles.footerButton}>
-                <Text style={styles.footerTextMore}>More</Text>
-              </View>
-            </TouchableOpacity>
-            </View>*/}
+      <View style={styles.footerContainer}>
+        <TouchableOpacity onPress={this._saveItem} style={{flex: 1}}>
+          <View style={styles.footerButton}>
+            <Text style={styles.footerTextSave}>Save</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={{flex: 1}}>
+          <View style={styles.footerButton}>
+            <Text style={styles.footerTextMore}>More</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
         </View>
       
     );
@@ -89,7 +89,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 12,
     height: 210,
-    borderRadius: 8,
+    //height: 260,
+    //borderRadius: 8,
+    borderRadius: 1,
     backgroundColor: "white",
     overflow: 'hidden',
   },

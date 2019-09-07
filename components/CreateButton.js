@@ -4,6 +4,7 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Text,
   Animated,
   Easing,
@@ -56,14 +57,14 @@ export default class CreateButton extends React.Component {
     
     return (
       <View style={[styles.container, this.props.positionStyle]}>
-        <TouchableOpacity
+        <TouchableWithoutFeedback
           style={styles.imageContainer}
           onPress={this._onPress}>
           <Animated.Image 
             style={{transform: [{rotate: spin}], height: '100%', width: '100%',}}
     	    source={require('../assets/images/gdrive-icon.png')}
           />
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </View>
     );
   }
