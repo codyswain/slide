@@ -18,8 +18,10 @@ import CreateButton from '../components/CreateButton';
 import CreateMenu from '../components/CreateMenu';
 import FilterButton from '../components/FilterButton';
 import { Contacts } from 'expo';
-import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome, MaterialIcons, Ionicons } from '@expo/vector-icons';
 import { db, fire } from '../src/config.js';
+
+import { Header } from 'react-navigation';
 
 export default class HomeScreen extends React.Component {
   // Note: To bind a function into the navigation options
@@ -43,18 +45,18 @@ export default class HomeScreen extends React.Component {
       shadowOpacity: .1,
     },
     headerLeft: (
-      <TouchableOpacity onPress={() => _this._signOut()}>
-        <View style={{marginLeft: 10}}>  
-          <FontAwesome
-            name="user-circle-o"
-            size={24}
+      <TouchableOpacity onPress={navigation.openDrawer}>
+        <View style={{marginLeft: 10}}>
+          <Ionicons
+            name='ios-menu'
+            size={26}
             color="rgb(68, 73, 84)"
           />
         </View>
       </TouchableOpacity>
     ),
     headerRight: (
-      <TouchableOpacity onPress={() => _this._signOut()}> 
+      <TouchableOpacity onPress={navigation.openDrawer}>
         <View style={{marginRight: 10}}>
           <MaterialIcons
             name="filter-list"
@@ -76,7 +78,6 @@ export default class HomeScreen extends React.Component {
   };
 
   componentDidMount(){
-    _this = this; // For binding functions to navigation components in header
     this.getEvents();
   };
 
@@ -196,7 +197,8 @@ export default class HomeScreen extends React.Component {
 
   // Removes a users token, and navigates them to authentication screen.
   _signOut = () => {
-    AsyncStorage.removeItem('userToken');
+    this.props.navigation.toggleDrawer();
+    /*AsyncStorage.removeItem('userToken');
     var user = fire.auth().currentUser;
     if (user){
       fire.auth().signOut().then(function(){
@@ -206,7 +208,7 @@ export default class HomeScreen extends React.Component {
         console.log("Not properly signed out");
         console.log(error);
       });
-    };
+    };*/
   };
 }
 

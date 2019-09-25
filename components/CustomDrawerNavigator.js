@@ -1,29 +1,30 @@
-import React from "react";
+import React, {PureComponent} from "react";
+import SafeAreaView from 'react-native-safe-area-view';
 import {
   View,
   StyleSheet, 
 } from "react-native";
-import { DrawerItems } from "react-navigation";
+import { DrawerView, DrawerItems } from "react-navigation";
 
 const CustomDrawerNavigator = props => (
-  <View style={[styles.container]}>
+  <SafeAreaView style={[styles.container]}>
     <DrawerItems
       activeBackgroundColor={"black"}
       activeTintColor={"white"}
       iconContainerStyle={styles.icons}
       {...props}
     />
-  </View>
+  </SafeAreaView>
 );
-
-export default CustomDrawerNavigator;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
+    flex: 1,
+    paddingTop: 20,
   },
-
   icons: {
-    width: 30, 
+    width: 40, 
   }
 });
+
+export default CustomDrawerNavigator;
