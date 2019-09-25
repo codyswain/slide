@@ -10,7 +10,7 @@ import {
 
 export default class NewPostScreen extends React.Component {
   static navigationOptions =  ({ navigation }) => ({
-    title: 'Create a Post',
+    title: 'Create a Plan',
     headerTitleStyle: {
       fontSize: 23,
       fontFamily: 'System',
@@ -39,7 +39,23 @@ export default class NewPostScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View>
-          <Text>WIP</Text>
+          <Text>Notes: drag up to see map containing all events</Text>
+          
+          <Text>Create New</Text>
+          <Text>Select from bookmarks</Text>
+          <Text>-----</Text>
+          <Text>Within create new</Text>
+          <Text>Title</Text>
+          <Text>Description</Text>
+          <Text>Location (open gmaps)</Text>
+          <Text>Photo</Text>
+          <Text>-----</Text>
+          <Text>Subselection for each 'event', where you select the:</Text>
+          <Text>Event Date</Text>
+          <Text>Event Time</Text>
+          <Text>-----</Text>
+          <Text>Add another event</Text>
+          <Text>Invite friends (instead of submit button)</Text>
         </View>
         <View style={styles.nameInput}>
           <TextInput

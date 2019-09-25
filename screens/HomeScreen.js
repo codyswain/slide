@@ -38,6 +38,7 @@ export default class HomeScreen extends React.Component {
     headerStyle: {
       backgroundColor: '#fff',
       borderBottomWidth: 0,
+      height: 38,
       //shadowOffset:{  width: 0 ,  height: .1,  },
       //shadowColor: 'rgb(68, 73, 84)',
       //shadowOpacity: .1,
