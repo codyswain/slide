@@ -13,15 +13,13 @@ import {
   Dimensions, 
 } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
-import EventPane from '../components/EventPane';
 import CreateButton from '../components/CreateButton';
 import CreateMenu from '../components/CreateMenu';
-import FilterButton from '../components/FilterButton';
-import { Contacts } from 'expo';
 import { FontAwesome, MaterialIcons, Ionicons } from '@expo/vector-icons';
-import { db, fire } from '../src/config.js';
-
 import { Header } from 'react-navigation';
+import ExploreScreen from '../screens/ExploreScreen';
+import Swiper from 'react-native-swiper';
+import FeedExploreButton from '../components/FeedExploreButton';
 
 export default class HomeScreen extends React.Component {
   // Note: To bind a function into the navigation options
@@ -40,9 +38,9 @@ export default class HomeScreen extends React.Component {
     headerStyle: {
       backgroundColor: '#fff',
       borderBottomWidth: 0,
-      shadowOffset:{  width: 0 ,  height: .1,  },
-      shadowColor: 'rgb(68, 73, 84)',
-      shadowOpacity: .1,
+      //shadowOffset:{  width: 0 ,  height: .1,  },
+      //shadowColor: 'rgb(68, 73, 84)',
+      //shadowOpacity: .1,
     },
     headerLeft: (
       <TouchableOpacity onPress={navigation.openDrawer}>
@@ -74,59 +72,30 @@ export default class HomeScreen extends React.Component {
       isLoading: true,
       events: [],
       toggleCreateMenu: false,
+      exploreSelected: true,
     };
   };
 
-  componentDidMount(){
-    this.getEvents();
-  };
-
   render() {
-    const {navigate} = this.props.navigation;
     return (
-      <View style={styles.container}>
-        <View style={styles.filterContainer}>
-          <ScrollView 
-            contentContainerStyle={styles.horizontalFilterScrollContent} 
-            style={styles.horizontalFilterScroll} 
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          >
-            <FilterButton
-              text={"Food"}
-              icon={<MaterialIcons name="local-pizza" size={20} color="white"/>}
-              selected={true}
-              color={styles.f1}
-            />
-            <FilterButton
-              text={"Drink"}
-              icon={<MaterialIcons name="local-bar" size={20} color="white"/>}
-              color={styles.f2}
-            />
-            <FilterButton
-              text={"Cafe"}
-              icon={<MaterialIcons name="local-cafe" size={20} color="white"/>}
-              color={styles.f3}
-            />
-            <FilterButton
-              text={"Dining"}
-              icon={<MaterialIcons name="local-dining" size={20} color="white"/>}
-              color={styles.f4}
-            />
-            <FilterButton
-              text={"Movie"}
-              icon={<MaterialIcons name="local-movies" size={20} color="white"/>}
-              color={styles.f5}
-            />
-          </ScrollView>
+      <View style={{flex: 1}}>
+        <View style={styles.feedExploreContainer}>
+          {this._switchFeedExploreButton()}
         </View>
-        <ScrollView style={styles.scrollSwipeContainer}>
-          <FlatList
-            data={this.state.events}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={ ({item}) => <EventPane event_data={item} navigation={navigate}/>}      
-          />
-        </ScrollView>
+        
+        <View style={{flex: 18}}>
+          <Swiper
+            loop={false}
+            showsPagination={false}
+            index={1}
+            onIndexChanged={(index) => {
+              this.setState({exploreSelected: !this.state.exploreSelected});
+            }}
+          >
+            <View style={{flex: 1}}/>
+            <ExploreScreen navigation={this.props.navigation}/>
+          </Swiper>
+        </View>
 
         {this._toggleCreateMenu()}
 
@@ -134,10 +103,31 @@ export default class HomeScreen extends React.Component {
           positionStyle={{right: 20, bottom: 20}}
           onPress={this._createButtonHandler}      
         />
-
       </View>
     );
   };
+
+  _switchFeedExploreButton = () => {
+    if (this.state.exploreSelected){
+      return (
+        <FeedExploreButton
+          feedBackgroundColor="white"
+          feedTextColor="black"
+          exploreBackgroundColor="black"
+          exploreTextColor="white"
+        />
+      );
+    } else {
+      return (
+        <FeedExploreButton
+          feedBackgroundColor="black"
+          feedTextColor="white"
+          exploreBackgroundColor="white"
+          exploreTextColor="black"
+        />
+      );
+    }
+  }
 
   // Logic conditional rendering of menu for creating posts of plans
   _toggleCreateMenu = () => {
@@ -159,56 +149,9 @@ export default class HomeScreen extends React.Component {
     }));
   }
 
-  // Retrieves firestore events recommended for user
-  getEvents = async () => {
-    let user = await fire.auth().currentUser;
-    let snapshot =
-        await db.collection("users").doc(user.uid).collection('events-to-recommend').get();
-
-    ids = []; 
-    snapshot.forEach(doc => {
-      ids.push(doc.id);    
-    });
-
-    all_events = [];
-    ids.forEach( async (item, index) => {
-      doc = await db.collection("events").doc(item).get();
-      db_event = doc.data();
-      if (db_event){
-        event = {
-          'id': doc.id,
-          'name': db_event['name'], 
-          'type': db_event['type'],
-          'subtitle': db_event['subtitle'],
-          'address': db_event['address'],
-          'photoURL': db_event['photoURL'],
-        };
-        this.setState(state => {
-          const events = state.events.concat(event);
-          return {
-            events
-          };
-        });
-     } else {
-        console.log("Undefined event");
-      };
-    });
-  };
-
   // Removes a users token, and navigates them to authentication screen.
   _signOut = () => {
     this.props.navigation.toggleDrawer();
-    /*AsyncStorage.removeItem('userToken');
-    var user = fire.auth().currentUser;
-    if (user){
-      fire.auth().signOut().then(function(){
-        console.log("Successful logout");
-        _this.props.navigation.navigate('Auth');
-      }).catch(function(error) {
-        console.log("Not properly signed out");
-        console.log(error);
-      });
-    };*/
   };
 }
 
@@ -216,49 +159,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1, 
   },
-  filterContainer: {
-    flex: .08,
-    alignItems: 'center',
-    shadowOffset:{  width: 0 ,  height: .2,  },
-    shadowColor: 'rgb(68, 73, 84)',
-    shadowOpacity: .1,
-  },
-  horizontalFilterScroll: {
-    width: Dimensions.get('window').width,
-  },
-  horizontalFilterScrollContent: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  filterButton: {
-    // width: 58,
-    // height: 58, 
-    // borderRadius: 50, 
-    width: 75,
-    height: 28, 
-    borderRadius: 1, 
-    marginLeft: 6,
-    shadowOffset: { width: 0, height: .1 },
-    shadowColor: 'rgb(68, 73, 84)',
-    shadowOpacity: .1,
-
-    alignItems: 'center',
+  feedExploreContainer: {
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+
+
   },
-  scrollSwipeContainer: {
-    flex: .88,
-    backgroundColor: 'rgb(238, 238, 238)',
+  feedExploreButton: {
+    width: '40%',
+    height: '80%',
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 50,
+    flexDirection: 'row',
+    overflow: 'hidden',
+    
   },
-  f1: {backgroundColor: "#e91e63"},
-  f2: {backgroundColor: "#ff4081"},
-  f3: {backgroundColor: "#5677fc"},
-  f4: {backgroundColor: "#40c4ff"},
-  f5: {backgroundColor: "#5af158"},
-  f6: {backgroundColor: "#ffd740"},
-  filterButtonText: {
-    fontSize: 14,
-    fontFamily: 'System',
-    fontWeight: '500',
-    color: 'white',
+  feedExploreLeft: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center', 
   },
+  feedExploreRight: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
+  }
 });
