@@ -7,8 +7,15 @@ import {
   View,
   
 } from 'react-native';
+import AddRemovePlan from '../components/newplan/AddRemovePlan';
 
 export default class NewPostScreen extends React.Component {
+  /* Screen for creating a new plan
+     This component is composed of the following: 
+     1. Google Maps: displays all locked in events in order
+     2. AddRemovePlan Section: Where user can add locations,
+     
+  */
   static navigationOptions =  ({ navigation }) => ({
     title: 'Create a Plan',
     headerTitleStyle: {
@@ -25,7 +32,6 @@ export default class NewPostScreen extends React.Component {
       shadowOpacity: .1,
     },
   });
-  
 
   constructor(props){
     super(props);
@@ -38,6 +44,10 @@ export default class NewPostScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <AddRemovePlan />
+
+
+        
         <View>
           <Text>Notes: drag up to see map containing all events</Text>
           
