@@ -36,7 +36,7 @@ export default class CreateMenu extends React.Component {
 
           <TouchableOpacity style={{flex: 1}} onPress={this._newPost}>
             <View style={styles.postButton}>
-              <Text style={styles.buttonText}>Create Post</Text>
+              <Text style={styles.buttonText}>Create Event</Text>
             </View>
           </TouchableOpacity>
 
@@ -50,7 +50,7 @@ export default class CreateMenu extends React.Component {
 styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    width: 90,
+    width: 100,
     height: 120,
     overflow: 'hidden',
     alignItems: 'center',
