@@ -14,26 +14,70 @@ export default class AddRemovePlan extends React.Component {
   
   render(){
     return(
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         <View style={styles.addEventButton}>
-          <View><Text>Create Event</Text></View>
-          <View><Text>Add from bookmarks</Text></View>
+          <TouchableOpacity onPress={this._createEvent}>
+            <View style={styles.createEventButton}>
+              <Text style={styles.createText}>Create Event</Text>
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity onPress={this._selectBookmark}>
+            <View style={styles.useBookmarkedEventButton}>
+              <Text style={styles.selectText}>Add from bookmarks</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-        <Text>yaaaaa</Text>
       </View>
     );
+  }
+
+  _createEvent = () => {
+    this.props.navigation.navigate('CreateEvent');
+  }
+
+  _selectBookmark = () => {
+    this.props.navigation.navigate('SelectEvent');
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
   },
   addEventButton: {
-    flex: 1,
-    width: '100%',
-    borderRadius: 10,
-    borderColor: 'black',
+    height: 60,
+    width: 300,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: 2,
+    borderRadius: 20,
+
+    overflow: 'hidden',
   },
+  createEventButton: {
+    flex: 1,
+    width: 150,
+    backgroundColor: 'blue',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  useBookmarkedEventButton: {
+    flex: 1,
+    width: 150,
+    backgroundColor: 'grey',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  createText: {
+    color: 'white',
+  },
+  selectText: {
+    color: 'white',
+  },
+  
 });

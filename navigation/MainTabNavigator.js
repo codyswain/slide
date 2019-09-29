@@ -11,7 +11,10 @@ import HomeScreen from '../screens/HomeScreen';
 import NewPostScreen from '../screens/NewPostScreen';
 import NewPlanScreen from '../screens/NewPlanScreen';
 import SocialScreen from '../screens/NotificationScreen';
-import BookmarkScreen from '../screens/BookmarkScreen'; 
+import BookmarkScreen from '../screens/BookmarkScreen';
+
+import CreateEventScreen from '../screens/CreateEventScreen';
+import SelectEventScreen from '../screens/SelectEventScreen';
 
 /* ---- About ----
 There are three screens accessible via the tab navigator (Home, Social,
@@ -24,6 +27,8 @@ const HomeStack = createStackNavigator({
   Home: HomeScreen,
   NewPost: NewPostScreen,
   NewPlan: NewPlanScreen,
+  CreateEvent: CreateEventScreen,
+  SelectEvent: SelectEventScreen,
 });
 
 HomeStack.navigationOptions = {
