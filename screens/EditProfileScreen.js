@@ -54,6 +54,8 @@ export default class EditProfileScreen extends React.Component {
   componentDidMount(){
     this._loadProfile();
     this.props.navigation.setParams({ goBack: this._goBackHandler });
+    this.state.prevName = this.state.name;
+    this.state.prevPhoneNumber = this.state.prevPhoneNumber;
   }
   
   render() {
@@ -101,6 +103,7 @@ export default class EditProfileScreen extends React.Component {
   }
 
   _goBackHandler = () => {
+    this.props.navigation.state.params.onGoBack();
     this.props.navigation.goBack();
   }
 
@@ -119,6 +122,7 @@ export default class EditProfileScreen extends React.Component {
       console.log(error);
     }
   }
+
 
   _renderProfile = () => {
     if (this.uri){

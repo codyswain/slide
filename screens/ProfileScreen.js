@@ -134,7 +134,9 @@ export default class ProfileScreen extends React.Component {
   }
 
   _editProfileHandler = () => {
-    this.props.navigation.navigate('EditProfile');
+    this.props.navigation.navigate('EditProfile', {
+      onGoBack: () => this._loadProfile(),
+    });
   }
 }
 
