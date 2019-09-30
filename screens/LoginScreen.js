@@ -89,9 +89,6 @@ export default class LoginScreen extends React.Component {
       });
       
       if (type === 'success') {
-        // Query facebook information via the graph api 
-	// const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-
         // Store token in persistent storage for future logins
         await AsyncStorage.setItem('userToken', token);
 

@@ -9,9 +9,11 @@ import CustomDrawerNavigator from "../components/CustomDrawerNavigator";
 import MainTabNavigator from './MainTabNavigator';
 import LogoutScreen from '../screens/LogoutScreen';
 import ProfileScreen from '../screens/ProfileScreen.js';
+import EditProfileScreen from '../screens/EditProfileScreen.js';
 
 const ProfileStack = createStackNavigator({
   Profile: ProfileScreen,
+  EditProfile: EditProfileScreen,
 });
 
 ProfileStack.navigationOptions = {

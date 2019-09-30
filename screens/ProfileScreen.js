@@ -12,6 +12,7 @@ import {
   MaterialIcons,
   Ionicons
 } from '@expo/vector-icons';
+import {fire, db} from '../src/config.js';
 
 export default class ProfileScreen extends React.Component {
 
@@ -41,9 +42,19 @@ export default class ProfileScreen extends React.Component {
         </View>
       </TouchableOpacity>
     ),
+    headerRight: (
+      <TouchableOpacity onPress={navigation.getParam('editProfile')}>
+        <View style={{marginRight: 10}}>
+          <Ionicons
+            name='ios-create'
+            size={26}
+            color="rgb(68, 73, 84)"
+          />
+        </View>
+      </TouchableOpacity>
+    ),
   });
 
-  
   constructor(props){
     super(props);
     this.state = {
@@ -53,8 +64,9 @@ export default class ProfileScreen extends React.Component {
 
   componentDidMount(){
     this._loadProfile();
+    this.props.navigation.setParams({ editProfile: this._editProfileHandler });
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
@@ -64,6 +76,7 @@ export default class ProfileScreen extends React.Component {
         
         <View style={styles.main}>
           <Text>{this.state.name}</Text>
+          <Text>{this.state.phoneNumber}</Text>
         </View>
       </View>
     );
@@ -100,8 +113,14 @@ export default class ProfileScreen extends React.Component {
               await fetch(`https://graph.facebook.com/${userID}/picture?type=large&access_token=${token}`);
 
           this.uri = responsePhoto.url;
+          
+          let user = await fire.auth().currentUser;
+          let userData = await db.collection('users').doc(user.uid);
+          userData = await userData.get();
+
           this.setState({
-            name: userName
+            name: userData.get('name'),
+            phoneNumber: userData.get('phoneNumber')
           });
           
         } else {
@@ -112,6 +131,10 @@ export default class ProfileScreen extends React.Component {
       // Error retrieving data
       console.log(error);
     }
+  }
+
+  _editProfileHandler = () => {
+    this.props.navigation.navigate('EditProfile');
   }
 }
 
