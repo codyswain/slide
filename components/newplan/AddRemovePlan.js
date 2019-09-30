@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
   },
   addEventButton: {
     height: 60,
@@ -54,22 +53,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 2,
-    borderRadius: 20,
+    borderRadius: 30,
 
     overflow: 'hidden',
   },
   createEventButton: {
     flex: 1,
     width: 150,
-    backgroundColor: 'blue',
+    backgroundColor: 'rgb(80,200,120)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   useBookmarkedEventButton: {
     flex: 1,
     width: 150,
-    backgroundColor: 'grey',
+    backgroundColor: 'rgb(253,165,15)',
     alignItems: 'center',
     justifyContent: 'center',
   },

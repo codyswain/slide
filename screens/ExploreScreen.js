@@ -158,8 +158,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scrollSwipeContainer: {
-    position: 'absolute',
-    marginTop: '12%',
     width: '100%',
     flex: .94,
     backgroundColor: 'rgb(238, 238, 238)',

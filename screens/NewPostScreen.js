@@ -8,6 +8,7 @@ import {
   
 } from 'react-native';
 import AddRemovePlan from '../components/newplan/AddRemovePlan';
+import MapView from 'react-native-maps';
 
 export default class NewPostScreen extends React.Component {
   /* Screen for creating a new plan
@@ -40,12 +41,24 @@ export default class NewPostScreen extends React.Component {
       addressText: '',
     };
   }
+
+  _handleSelectedEvent = (id) => {
+    console.log(id);
+  }
   
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.mapContainer}>
-          <Text>Google Maps will load here</Text>
+          <MapView
+            style={{height: '100%', width: '100%',}}
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
         </View>
         <AddRemovePlan
           navigation={this.props.navigation}
@@ -76,7 +89,7 @@ export default class NewPostScreen extends React.Component {
                 borderRadius: 2,
                 padding: 8,
               }}
-              placeholder="Type the place name here"
+              placeholder="Enter the time information here"
               onChangeText={(nameText) => this.setState({nameText})}
               value={this.state.text}
             />
@@ -92,7 +105,7 @@ export default class NewPostScreen extends React.Component {
                 borderRadius: 2, 
                 padding: 8,
               }}
-              placeholder="Type the address in here"
+              placeholder="Enter place information here"
               onChangeText={(addressText) => this.setState({addressText})}
               value={this.state.text}
             />
@@ -119,7 +132,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   mapContainer: {
-    flex: 2,
+    flex: 3,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
