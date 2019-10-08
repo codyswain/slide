@@ -136,11 +136,16 @@ export default class HomeScreen extends React.Component {
       return (
         <CreateMenu
           navigation={this.props.navigation}
-          positionStyle={{right: 20, bottom: 85}}/>
+          positionStyle={{right: 20, bottom: 85}}
+          onPress={this._hideCreateMenu}
+        />
       );
     } else {
       return (null); 
     }
+  }
+  _hideCreateMenu = () => {
+    this.setState({toggleCreateMenu: false});
   }
 
   // Hide or show the menu for creating new post or plan

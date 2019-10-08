@@ -14,10 +14,12 @@ export default class CreateMenu extends React.Component {
 
   _newPlan = () => {
     this.props.navigation.navigate('NewPlan');
+    this.props.onPress(); 
   }
 
   _newPost = () => {
     this.props.navigation.navigate('NewPost');
+    this.props.onPress(); 
   }
 
   render(){
