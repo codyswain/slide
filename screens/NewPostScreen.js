@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
-  
+  ScrollView,
 } from 'react-native';
 import AddRemovePlan from '../components/newplan/AddRemovePlan';
 import MapView from 'react-native-maps';
@@ -18,7 +18,7 @@ export default class NewPostScreen extends React.Component {
      
   */
   static navigationOptions =  ({ navigation }) => ({
-    title: 'Create a Plan',
+    title: 'New Plan',
     headerTitleStyle: {
       fontSize: 23,
       fontFamily: 'System',
@@ -49,81 +49,71 @@ export default class NewPostScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.mapContainer}>
-          <MapView
-            style={{height: '100%', width: '100%',}}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
+        <ScrollView
+          style={styles.scrollContainer}
+          contentOffset={{x:0, y:1}}
+        >
+          <View style={styles.mapContainer}>
+            <MapView
+              style={{height: '100%', width: '100%',}}
+              initialRegion={{
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+            />
+          </View>
+          
+          <AddRemovePlan
+            navigation={this.props.navigation}
+            style={styles.eventContainer}
           />
-        </View>
-        <AddRemovePlan
-          navigation={this.props.navigation}
-          style={styles.eventContainer}
-        />
-        {/*<View>
-          <Text>Within create new</Text>
-          <Text>Title</Text>
-          <Text>Description</Text>
-          <Text>Location (open gmaps)</Text>
-          <Text>Photo</Text>
-          <Text>-----</Text>
-          <Text>Subselection for each 'event', where you select the:</Text>
-          <Text>Event Date</Text>
-          <Text>Event Time</Text>
-          <Text>-----</Text>
-          <Text>Add another event</Text>
-          <Text>Invite friends (instead of submit button)</Text>
-          </View> */}
-        <View style={styles.datetimeContainer}>
-          <View style={styles.nameInput}>
-            <TextInput
-              style={{
-                height: 40,
-                width: '90%',
-                borderColor: 'black',
-                borderWidth: 2,
-                borderRadius: 2,
-                padding: 8,
-              }}
-              placeholder="Enter the time information here"
-              onChangeText={(nameText) => this.setState({nameText})}
-              value={this.state.text}
+          
+          <View style={styles.datetimeContainer}>
+            <View style={styles.nameInput}>
+
+              <TextInput
+                style={{
+                  height: 40,
+                  width: '90%',
+                  borderColor: 'black',
+                  borderWidth: 2,
+                  borderRadius: 2,
+                  padding: 8, }}
+                placeholder="Enter the time information here"
+                onChangeText={(nameText) => this.setState({nameText})}
+                value={this.state.text}
+              />
+              
+          </View>
+            <View style={styles.addressInput}>
+              <TextInput
+                style={{
+                  height: 40,
+                  width: '90%',
+                  borderColor: 'black',
+                  borderWidth: 2,
+                  borderRadius: 2, 
+                  padding: 8,
+                }}
+                placeholder="Enter place information here"
+                onChangeText={(addressText) => this.setState({addressText})}
+                value={this.state.text}
             />
+            </View>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button}>
+                <Text style={{color: 'white'}}>Submit</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.bottom}></View>
           </View>
-          
-          <View style={styles.addressInput}>
-            <TextInput
-              style={{
-                height: 40,
-                width: '90%',
-                borderColor: 'black',
-                borderWidth: 2,
-                borderRadius: 2, 
-                padding: 8,
-              }}
-              placeholder="Enter place information here"
-              onChangeText={(addressText) => this.setState({addressText})}
-              value={this.state.text}
-            />
-          </View>
-          
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button}>
-              <Text style={{color: 'white'}}>Submit</Text>
-            </TouchableOpacity>
-          </View>
-          
-          <View style={styles.bottom}></View>
-        </View>
+        </ScrollView>
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -131,14 +121,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
-  mapContainer: {
-    flex: 3,
+  scrollContainer: {
+    flex: 1,
     width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  mapContainer: {
+    height: 300,
+    width: '100%',
+    backgroundColor: 'black',
   },
   eventContainer: {
-    flex: 1,
+    flex: .6,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   datetimeContainer: {
     flex: 2,

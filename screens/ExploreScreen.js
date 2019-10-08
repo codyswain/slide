@@ -10,7 +10,8 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  Dimensions, 
+  Dimensions,
+  RefreshControl
 } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import EventPane from '../components/EventPane';
@@ -78,7 +79,9 @@ export default class ExploreScreen extends React.Component {
             />
           </ScrollView>
         </View>
-        <ScrollView style={styles.scrollSwipeContainer}>
+        <ScrollView
+          style={styles.scrollSwipeContainer}
+        >
           <FlatList
             data={this.state.events}
             keyExtractor={(item, index) => index.toString()}

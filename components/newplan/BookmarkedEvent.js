@@ -11,7 +11,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { db, fire } from '../../src/config.js';
 
-export default class SavedEventPane extends React.Component {
+export default class BookmarkedEvent extends React.Component {
   constructor(props){
     super(props);
     this.event_id = props.event_data['id'];
@@ -20,6 +20,7 @@ export default class SavedEventPane extends React.Component {
     this.event_subtitle = props.event_data['subtitle'];
     this.event_address = props.event_data['address'];
     this.event_photoURL = props.event_data['photoURL'];
+    
   }
 
   _onPress = () => {
@@ -32,11 +33,9 @@ export default class SavedEventPane extends React.Component {
     event_type = this.event_type;
     event_subtitle = this.event_subtitle;
     event_address = this.event_address;
-    event_photoURL = this.event_photoURL; 
-
+    event_photoURL = this.event_photoURL;
     return (
       <View style={styles.container}>
-        
           <TouchableOpacity style={{flex: 5}}> 
             <LinearGradient
               colors={['rgba(0,0,0,.8)', 'rgba(0,0,0,0)']}
@@ -49,7 +48,6 @@ export default class SavedEventPane extends React.Component {
                      source={{ uri: event_photoURL }}/>
             </View>
           </TouchableOpacity>
-          
           <View style={styles.footerContainer}>
             <TouchableOpacity onPress={this._selectItem} style={{flex: 1}}>
               <View style={styles.footerButton}>
@@ -63,8 +61,17 @@ export default class SavedEventPane extends React.Component {
   }
 
   _selectItem = () => {
-    this.props.selectionHandler(this.event_id);
-    var user = fire.auth().currentUser;
+    //if(this.props.navigation) {
+    //  this.props.navigation.state.params.returnData(this.event_id);
+    //  this.props.navigation.goBack();
+    //}
+    if (this.props.selectionHandler){
+      this.props.selectionHandler(this.event_name);
+      this.props.navigation.goBack();
+    }
+    
+    //this.props.navigation.returnData(this.event_id);
+    //this.props.navigation.goBack();
   }
   
 }

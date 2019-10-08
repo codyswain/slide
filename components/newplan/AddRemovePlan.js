@@ -4,70 +4,103 @@ import {
   TextInput,
   StyleSheet,
   Text,
-  View
+  View,
+  FlatList
 } from 'react-native';
 
-export default class AddRemovePlan extends React.Component {
+class EventShort extends React.Component {
   constructor(props){
     super(props);
   }
   
+  render() {
+    return (
+      <View style={{
+        marginTop: 8,
+        marginBottom: 0,
+        width: 356,
+        height: 50,
+        borderRadius: 10,
+        backgroundColor: 'rgba(253,189,3,1)',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}><Text style={{color: 'white'}}>{this.props.data}</Text>
+      </View>
+    );
+  }
+}
+
+export default class AddRemovePlan extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      event_id: '',
+      events: [],
+    };
+  }
+  
   render(){
     return(
-      <View style={[styles.container, this.props.style]}>
-        <View style={styles.addEventButton}>
-          <TouchableOpacity onPress={this._createEvent}>
-            <View style={styles.createEventButton}>
-              <Text style={styles.createText}>Create Event</Text>
-            </View>
-          </TouchableOpacity>
-          
-          <TouchableOpacity onPress={this._selectBookmark}>
-            <View style={styles.useBookmarkedEventButton}>
-              <Text style={styles.selectText}>Add from bookmarks</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+      <View style={this.props.style}>
+        <FlatList
+          data={this.state.events}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={ ({item}) =>
+                       <EventShort
+                         navigation={this.props.navigation}
+                         data={item}
+                       />}
+          scrollEnabled={false}
+        />
+        <TouchableOpacity
+          onPress={this._selectBookmark}
+          style={styles.addEventButton}
+        >
+          <Text style={{color: 'white'}}>+ Select an Event from Bookmarks</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 
+  _returnData = (event_id) => {
+    if (!this.state.events.includes(event_id)){
+      var joined = this.state.events.concat(event_id);
+      this.setState({ events: joined });
+    }
+  }
+  
   _createEvent = () => {
     this.props.navigation.navigate('CreateEvent');
   }
-
+  
   _selectBookmark = () => {
-    this.props.navigation.navigate('SelectEvent');
+    this.props.navigation.navigate(
+      'SelectEvent', {returnData: this._returnData.bind(this)}
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   addEventButton: {
-    height: 60,
-    width: 300,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    marginTop: 8,
+    marginBottom: 8,
+    width: 356,
+    height: 50,
     alignItems: 'center',
-    borderRadius: 30,
-
-    overflow: 'hidden',
+    justifyContent: 'center', 
+    borderRadius: 10,
+    backgroundColor: '#4c8bf5',
+    shadowOffset:{  width: 0 ,  height: .2,  },
+    shadowColor: 'rgb(68, 73, 84)',
+    shadowOpacity: .7,
   },
   createEventButton: {
-    flex: 1,
-    width: 150,
     backgroundColor: 'rgb(80,200,120)',
-    alignItems: 'center',
     justifyContent: 'center',
   },
   useBookmarkedEventButton: {
     flex: 1,
-    width: 150,
-    backgroundColor: 'rgb(253,165,15)',
+    backgroundColor: ' rgb(59, 89, 152)',
     alignItems: 'center',
     justifyContent: 'center',
   },
